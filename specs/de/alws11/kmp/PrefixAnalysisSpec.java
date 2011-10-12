@@ -16,37 +16,72 @@ public class PrefixAnalysisSpec {
     }
 
     @Test
-    public void wikipedia_sample_1() throws Exception {
+    public void wikipedia_sample1() throws Exception {
         long[] actualPrefixes = PrefixesFor("ababcabab");
-        long[] expeactedPrefixes = Helper.ArrayOfLongs(-1, 0, 0, 1, 2, 0, 1, 2, 3, 4);
-        Assert.assertTrue(Helper.AreSame(actualPrefixes, expeactedPrefixes));
+        long[] expectedPrefixes = Helper.ArrayOfLongs(-1, 0, 0, 1, 2, 0, 1, 2, 3, 4);
+        Assert.assertTrue(Helper.AreSame(actualPrefixes, expectedPrefixes));
     }
 
     @Test
-    public void prefixes_length3_3() throws Exception {
-        long[] expeactedPrefixes = Helper.ArrayOfLongs(-1, 0, 0, 0);
+    public void length6_onePrefix() throws Exception {
+        long[] actualPrefixes = PrefixesFor("abcacb");
+        long[] expectedPrefixes = Helper.ArrayOfLongs(-1, 0, 0, 0, 1, 0, 0);
+        Assert.assertTrue(Helper.AreSame(actualPrefixes, expectedPrefixes));
+    }
+
+    @Test
+    public void length6_twoPrefixes() throws Exception {
+        long[] actualPrefixes = PrefixesFor("abccab");
+        long[] expectedPrefixes = Helper.ArrayOfLongs(-1, 0, 0, 0, 0, 1, 2);
+        Assert.assertTrue(Helper.AreSame(actualPrefixes, expectedPrefixes));
+    }
+
+    @Test
+    public void length6_threePrefixes() throws Exception {
+        long[] actualPrefixes = PrefixesFor("abcabc");
+        long[] expectedPrefixes = Helper.ArrayOfLongs(-1, 0, 0, 0, 1, 2, 3);
+        Assert.assertTrue(Helper.AreSame(actualPrefixes, expectedPrefixes));
+    }
+
+    @Test
+    public void length5_twoPrefixes() throws Exception {
+        long[] actualPrefixes = PrefixesFor("abcab");
+        long[] expectedPrefixes = Helper.ArrayOfLongs(-1, 0, 0, 0, 1, 2);
+        Assert.assertTrue(Helper.AreSame(actualPrefixes, expectedPrefixes));
+    }
+
+    @Test
+    public void length4_onePrefix() throws Exception {
+        long[] actualPrefixes = PrefixesFor("abca");
+        long[] expectedPrefixes = Helper.ArrayOfLongs(-1, 0, 0, 0, 1);
+        Assert.assertTrue(Helper.AreSame(actualPrefixes, expectedPrefixes));
+    }
+
+    @Test
+    public void length3_noPrefix() throws Exception {
         long[] actualPrefixes = PrefixesFor("abc");
-        Assert.assertTrue(Helper.AreSame(actualPrefixes, expeactedPrefixes));
+        long[] expectedPrefixes = Helper.ArrayOfLongs(-1, 0, 0, 0);
+        Assert.assertTrue(Helper.AreSame(actualPrefixes, expectedPrefixes));
     }
 
     @Test
-    public void prefixes_length2_2() throws Exception {
+    public void length2_noPrefix() throws Exception {
         long[] actualPrefixes = PrefixesFor("ab");
-        long[] expeactedPrefixes = Helper.ArrayOfLongs(-1, 0, 0);
-        Assert.assertTrue(Helper.AreSame(actualPrefixes, expeactedPrefixes));
+        long[] expectedPrefixes = Helper.ArrayOfLongs(-1, 0, 0);
+        Assert.assertTrue(Helper.AreSame(actualPrefixes, expectedPrefixes));
     }
 
     @Test
-    public void prefixes_length1_1() throws Exception {
+    public void length1_noPrefix() throws Exception {
         long[] actualPrefixes = PrefixesFor("a");
-        long[] expeactedPrefixes = Helper.ArrayOfLongs(-1, 0);
-        Assert.assertTrue(Helper.AreSame(actualPrefixes, expeactedPrefixes));
+        long[] expectedPrefixes = Helper.ArrayOfLongs(-1, 0);
+        Assert.assertTrue(Helper.AreSame(actualPrefixes, expectedPrefixes));
     }
 
     @Test
-    public void prefixes_length0_0() throws Exception {
+    public void length0_noPrefix() throws Exception {
         long[] actualPrefixes = PrefixesFor("");
-        long[] expeactedPrefixes = Helper.ArrayOfLongs(-1);
-        Assert.assertTrue(Helper.AreSame(actualPrefixes, expeactedPrefixes));
+        long[] expectedPrefixes = Helper.ArrayOfLongs(-1);
+        Assert.assertTrue(Helper.AreSame(actualPrefixes, expectedPrefixes));
     }
 }
