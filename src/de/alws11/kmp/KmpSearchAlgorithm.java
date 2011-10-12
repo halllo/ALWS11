@@ -16,14 +16,14 @@ class KmpSearchAlgorithm {
             i = i + 1;
             j = j + 1;
             if (j == pattern.Size()) {
-                MatchFoundArgs match = NewMatch(found, i - pattern.Size());
+                MatchFoundArgs match = NotifyMatch(found, i - pattern.Size());
                 if (!match.Continue) break;
                 j = prefixes.GetPosition(j);
             }
         }
     }
 
-    private static MatchFoundArgs NewMatch(IMatchFound found, long position) {
+    private static MatchFoundArgs NotifyMatch(IMatchFound found, long position) {
         MatchFoundArgs match = new MatchFoundArgs();
         match.Position = position;
         found.NewMatch(match);

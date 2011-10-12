@@ -39,6 +39,12 @@ public class SearchSpec {
     }
 
     @Test
+    public void search_thereTwiceInterlocked_bothFound() throws Exception {
+        List<Long> findings = SearchAll("abbb", "bb");
+        Assert.assertTrue(findings.contains((long) 1) && findings.contains((long) 2));
+    }
+
+    @Test
     public void search_thereTwice_onlyFirstFound() throws Exception {
         List<Long> findings = Search("abb", "b", false);
         Assert.assertTrue(findings.contains((long) 1) && !findings.contains((long) 2));

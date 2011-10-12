@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class KmpSearcher implements ISearch {
-    public Boolean FindAllMatches;
+    public boolean FindAllMatches;
 
     public KmpSearcher() {
         FindAllMatches = true;
