@@ -1,12 +1,5 @@
 package de.alws11;
 
-/**
- * Created by IntelliJ IDEA.
- * User: Manuel
- * Date: 09.10.11
- * Time: 17:17
- * To change this template use File | Settings | File Templates.
- */
 public class Helper {
     public static long[] ArrayOfLongs(long... longs) {
         return longs;

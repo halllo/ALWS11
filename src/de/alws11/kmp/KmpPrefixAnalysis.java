@@ -3,14 +3,7 @@ package de.alws11.kmp;
 import de.alws11.IDataProvider;
 import de.alws11.IPrefixStore;
 
-/**
- * Created by IntelliJ IDEA.
- * User: Manuel
- * Date: 09.10.11
- * Time: 16:44
- * To change this template use File | Settings | File Templates.
- */
-public class PrefixAnalysis {
+class KmpPrefixAnalysis {
     public static void ForPattern(IDataProvider pattern, IPrefixStore prefixes) {
         prefixes.RequestSize(pattern.Size() + 1);
         long i = 0;

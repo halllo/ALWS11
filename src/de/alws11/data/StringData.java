@@ -2,13 +2,6 @@ package de.alws11.data;
 
 import de.alws11.IDataProvider;
 
-/**
- * Created by IntelliJ IDEA.
- * User: Manuel
- * Date: 12.10.11
- * Time: 10:15
- * To change this template use File | Settings | File Templates.
- */
 public class StringData implements IDataProvider {
     public static String[] OfString(String word) {
         String[] arrayOfStrings = new String[word.length()];

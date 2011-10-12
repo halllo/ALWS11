@@ -7,18 +7,11 @@ import de.alws11.data.StringData;
 import junit.framework.Assert;
 import org.junit.Test;
 
-/**
- * Created by IntelliJ IDEA.
- * User: Manuel
- * Date: 09.10.11
- * Time: 16:55
- * To change this template use File | Settings | File Templates.
- */
 public class PrefixAnalysisSpec {
     private long[] PrefixesFor(String pattern) {
         IDataProvider patternData = new StringData(pattern);
         PrefixData prefixes = new PrefixData();
-        PrefixAnalysis.ForPattern(patternData, prefixes);
+        KmpPrefixAnalysis.ForPattern(patternData, prefixes);
         return prefixes.GetRaw();
     }
 
