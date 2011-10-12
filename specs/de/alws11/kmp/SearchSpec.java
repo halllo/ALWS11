@@ -1,7 +1,7 @@
 package de.alws11.kmp;
 
-import de.alws11.Helper;
-import de.alws11.IIndexable;
+import de.alws11.IDataProvider;
+import de.alws11.data.PrefixData;
 import de.alws11.data.StringData;
 import junit.framework.Assert;
 import org.junit.Test;
@@ -16,10 +16,11 @@ import java.util.List;
  */
 public class SearchSpec {
     private List<Long> Search(String rawText, String rawPatter) {
-        IIndexable text = new StringData(rawText);
-        IIndexable pattern = new StringData(rawPatter);
-        long[] prefixes = PrefixAnalysis.ForPattern(pattern);
-        return Search.InText(text, pattern, prefixes);
+        IDataProvider text = new StringData(rawText);
+        IDataProvider pattern = new StringData(rawPatter);
+        PrefixData prefixes = new PrefixData();
+        PrefixAnalysis.ForPattern(pattern, prefixes);
+        return Search.InText(text, pattern, prefixes.GetRaw());
     }
 
     @Test

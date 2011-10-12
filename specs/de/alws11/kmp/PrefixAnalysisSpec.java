@@ -1,7 +1,8 @@
 package de.alws11.kmp;
 
 import de.alws11.Helper;
-import de.alws11.IIndexable;
+import de.alws11.IDataProvider;
+import de.alws11.data.PrefixData;
 import de.alws11.data.StringData;
 import junit.framework.Assert;
 import org.junit.Test;
@@ -15,8 +16,10 @@ import org.junit.Test;
  */
 public class PrefixAnalysisSpec {
     private long[] PrefixesFor(String pattern) {
-        IIndexable patternData = new StringData(pattern);
-        return PrefixAnalysis.ForPattern(patternData);
+        IDataProvider patternData = new StringData(pattern);
+        PrefixData prefixes = new PrefixData();
+        PrefixAnalysis.ForPattern(patternData, prefixes);
+        return prefixes.GetRaw();
     }
 
     @Test

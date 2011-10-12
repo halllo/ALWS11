@@ -7,7 +7,7 @@ package de.alws11;
  * Time: 09:55
  * To change this template use File | Settings | File Templates.
  */
-public interface IIndexable {
-    String AtIndex(long index);
+public interface IDataProvider {
+    String GetPosition(long index);
     long Size();
 }

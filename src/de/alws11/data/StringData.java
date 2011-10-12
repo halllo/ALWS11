@@ -1,6 +1,6 @@
 package de.alws11.data;
 
-import de.alws11.IIndexable;
+import de.alws11.IDataProvider;
 
 /**
  * Created by IntelliJ IDEA.
@@ -9,7 +9,7 @@ import de.alws11.IIndexable;
  * Time: 10:15
  * To change this template use File | Settings | File Templates.
  */
-public class StringData implements IIndexable {
+public class StringData implements IDataProvider {
     public static String[] OfString(String word) {
         String[] arrayOfStrings = new String[word.length()];
         for (int i = 0; i < word.length(); i++) {
@@ -24,7 +24,7 @@ public class StringData implements IIndexable {
         _text = OfString(text);
     }
 
-    public String AtIndex(long index) {
+    public String GetPosition(long index) {
         return _text[(int)index];
     }
 
