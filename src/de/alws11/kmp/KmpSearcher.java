@@ -1,16 +1,15 @@
 package de.alws11.kmp;
 
 import de.alws11.*;
-import de.alws11.data.PrefixData;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class KmpSearcher implements ISearch {
     public boolean FindAllMatches;
-    private IPrefixStore _prefixes;
+    private IIndexStore _prefixes;
 
-    public KmpSearcher(IPrefixStore prefixes) {
+    public KmpSearcher(IIndexStore prefixes) {
         FindAllMatches = true;
         _prefixes = prefixes;
     }

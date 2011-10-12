@@ -1,27 +1,27 @@
 package de.alws11.data;
 
-import de.alws11.IPrefixStore;
+import de.alws11.IIndexStore;
 
-public class PrefixData implements IPrefixStore {
-    private long[] _longs;
+public class PrefixData implements IIndexStore {
+    private long[] _indices;
 
     public PrefixData() {
 
    }
 
-    public void SetPosition(long index, long value) {
-        _longs[(int) index] = value;
+    public void SetIndex(long metaIndex, long index) {
+        _indices[(int) metaIndex] = index;
     }
 
-    public long GetPosition(long index) {
-        return _longs[(int)index];
+    public long GetIndex(long metaIndex) {
+        return _indices[(int)metaIndex];
     }
 
-    public void RequestSize(long size) {
-        _longs = new long[(int)size];
+    public void RequiredSize(long size) {
+        _indices = new long[(int)size];
     }
 
     public long[] GetRaw() {
-        return _longs;
+        return _indices;
     }
 }
