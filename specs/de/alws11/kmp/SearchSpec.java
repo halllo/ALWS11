@@ -1,6 +1,8 @@
 package de.alws11.kmp;
 
 import de.alws11.IDataProvider;
+import de.alws11.IPrefixStore;
+import de.alws11.data.PrefixData;
 import de.alws11.data.StringData;
 import junit.framework.Assert;
 import org.junit.Test;
@@ -15,7 +17,7 @@ public class SearchSpec {
     private List<Long> Search(String rawText, String rawPattern, boolean all) {
         IDataProvider text = new StringData(rawText);
         IDataProvider pattern = new StringData(rawPattern);
-        KmpSearcher search = new KmpSearcher();
+        KmpSearcher search = new KmpSearcher(new PrefixData());
         search.FindAllMatches = all;
         return search.Search(text, pattern);
     }
