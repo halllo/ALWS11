@@ -1,5 +1,5 @@
 package de.alws11;
 
 public interface IMatchFound {
-    public void NewMatch(MatchFoundArgs e);
+    public void newMatch(MatchFoundArgs e);
 }

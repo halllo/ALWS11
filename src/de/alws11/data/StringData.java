@@ -3,7 +3,7 @@ package de.alws11.data;
 import de.alws11.IDataProvider;
 
 public class StringData implements IDataProvider {
-    public static String[] OfString(String word) {
+    public static String[] ofString(String word) {
         String[] arrayOfStrings = new String[word.length()];
         for (int i = 0; i < word.length(); i++) {
             arrayOfStrings[i] = "" + word.charAt(i);
@@ -14,14 +14,14 @@ public class StringData implements IDataProvider {
     private String[] _text;
 
     public StringData(String text) {
-        _text = OfString(text);
+        _text = ofString(text);
     }
 
-    public String GetPosition(long index) {
+    public String getPosition(long index) {
         return _text[(int)index];
     }
 
-    public long Size() {
+    public long size() {
         return _text.length;
     }
 }

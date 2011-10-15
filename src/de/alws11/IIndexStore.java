@@ -1,7 +1,7 @@
 package de.alws11;
 
 public interface IIndexStore {
-    void SetIndex(long metaIndex, long index);
-    long GetIndex(long metaIndex);
-    void RequiredSize(long size);
+    void setIndex(long metaIndex, long index);
+    long getIndex(long metaIndex);
+    void requiredSize(long size);
 }

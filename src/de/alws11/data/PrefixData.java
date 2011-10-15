@@ -9,19 +9,19 @@ public class PrefixData implements IIndexStore {
 
    }
 
-    public void SetIndex(long metaIndex, long index) {
+    public void setIndex(long metaIndex, long index) {
         _indices[(int) metaIndex] = index;
     }
 
-    public long GetIndex(long metaIndex) {
+    public long getIndex(long metaIndex) {
         return _indices[(int)metaIndex];
     }
 
-    public void RequiredSize(long size) {
+    public void requiredSize(long size) {
         _indices = new long[(int)size];
     }
 
-    public long[] GetRaw() {
+    public long[] getRaw() {
         return _indices;
     }
 }

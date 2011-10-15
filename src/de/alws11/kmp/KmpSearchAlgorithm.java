@@ -6,27 +6,27 @@ import de.alws11.IIndexStore;
 import de.alws11.MatchFoundArgs;
 
 class KmpSearchAlgorithm {
-    public static void OnData(IDataProvider data, IDataProvider pattern, IIndexStore prefixes, IMatchFound found) {
+    public static void onData(IDataProvider data, IDataProvider pattern, IIndexStore prefixes, IMatchFound found) {
         long i = 0;
         long j = 0;
-        while (i < data.Size()) {
-            while (j >= 0 && !data.GetPosition(i).equals(pattern.GetPosition(j))) {
-                j = prefixes.GetIndex(j);
+        while (i < data.size()) {
+            while (j >= 0 && !data.getPosition(i).equals(pattern.getPosition(j))) {
+                j = prefixes.getIndex(j);
             }
             i = i + 1;
             j = j + 1;
-            if (j == pattern.Size()) {
-                MatchFoundArgs match = NotifyMatch(found, i - pattern.Size());
-                if (!match.Continue) break;
-                j = prefixes.GetIndex(j);
+            if (j == pattern.size()) {
+                MatchFoundArgs match = notifyMatch(found, i - pattern.size());
+                if (!match.shouldContinue) break;
+                j = prefixes.getIndex(j);
             }
         }
     }
 
-    private static MatchFoundArgs NotifyMatch(IMatchFound found, long position) {
+    private static MatchFoundArgs notifyMatch(IMatchFound found, long position) {
         MatchFoundArgs match = new MatchFoundArgs();
-        match.Position = position;
-        found.NewMatch(match);
+        match.position = position;
+        found.newMatch(match);
         return match;
     }
 }

@@ -6,21 +6,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class KmpSearcher implements ISearch {
-    public boolean FindAllMatches;
+    public boolean findAllMatches;
     private IIndexStore _prefixes;
 
     public KmpSearcher(IIndexStore prefixes) {
-        FindAllMatches = true;
+        findAllMatches = true;
         _prefixes = prefixes;
     }
 
-    public List<Long> Search(IDataProvider source, IDataProvider pattern) {
+    public List<Long> search(IDataProvider source, IDataProvider pattern) {
         final List<Long> findings = new ArrayList<Long>();
-        KmpPrefixAnalysis.ForPattern(pattern, _prefixes);
-        KmpSearchAlgorithm.OnData(source, pattern, _prefixes, new IMatchFound() {
-            public void NewMatch(MatchFoundArgs e) {
-                findings.add(e.Position);
-                e.Continue = FindAllMatches;
+        KmpPrefixAnalysis.forPattern(pattern, _prefixes);
+        KmpSearchAlgorithm.onData(source, pattern, _prefixes, new IMatchFound() {
+            public void newMatch(MatchFoundArgs e) {
+                findings.add(e.position);
+                e.shouldContinue = findAllMatches;
             }
         });
         return findings;

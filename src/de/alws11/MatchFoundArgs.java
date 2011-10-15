@@ -1,11 +1,11 @@
 package de.alws11;
 
 public class MatchFoundArgs {
-    public boolean Continue;
-    public long Position;
+    public boolean shouldContinue;
+    public long position;
 
     public MatchFoundArgs() {
-        Continue = true;
-        Position = -1;
+        shouldContinue = true;
+        position = -1;
     }
 }
