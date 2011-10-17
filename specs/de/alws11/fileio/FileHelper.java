@@ -3,9 +3,9 @@ package de.alws11.fileio;
 import de.alws11.fileio.fake.FileAccess;
 
 public class FileHelper {
-    public static IFileAccess getLineProvider(String... expectedLines) throws Exception {
+    public static IFileAccess getLineProvider(String... linesToReturn) throws Exception {
         FileAccess readSource = new FileAccess();
-        readSource.returnLines(expectedLines);
+        readSource.returnLines(linesToReturn);
         return readSource;
     }
 

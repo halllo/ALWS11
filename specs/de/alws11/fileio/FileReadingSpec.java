@@ -53,7 +53,7 @@ public class FileReadingSpec {
     }
 
     @Test
-    public void length3buffer0_noReads() throws Exception {
+    public void length3buffer0_noChunksAndException() throws Exception {
         IFileAccess content = FileHelper.getLineProvider("012");
         try {
             FileHelper.getChunks(content, 0, 3);
@@ -99,7 +99,7 @@ public class FileReadingSpec {
     }
 
     @Test
-    public void length3buffer0_exception() throws Exception {
+    public void length3buffer0_noCharsAndException() throws Exception {
         IFileAccess content = FileHelper.getLineProvider("012");
         try {
             FileHelper.getChars(content, 0, 3);
