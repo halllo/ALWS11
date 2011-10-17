@@ -1,4 +1,4 @@
-package de.alws11;
+package de.alws11.kmp;
 
 public interface IIndexStore {
     void setIndex(long metaIndex, long index);

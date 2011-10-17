@@ -1,22 +1,30 @@
-package de.alws11.fileio;
+package de.alws11.fileio.fake;
+
+import de.alws11.fileio.IFileAccess;
 
 import java.io.IOException;
 
-public class FileReadingSource implements IFileAccess {
+public class FileAccess implements IFileAccess {
     private String[] _lines;
     private int _currentLineIndex;
+    private int _currentCharIndex;
 
-    public FileReadingSource() {
+    public FileAccess() {
 
     }
 
     public void returnLines(String... lines) {
         _lines = lines;
         _currentLineIndex = 0;
+        _currentCharIndex = 0;
     }
 
     public int read(char[] buffer, int offset, int length) throws IOException {
-        return 0;  //To change body of implemented methods use File | Settings | File Templates.
+        int i = 0;
+        for (; i < length && _currentCharIndex < _lines[0].length(); i++, _currentCharIndex++) {
+            buffer[i] = _lines[0].charAt(_currentCharIndex);
+        }
+        return i;
     }
 
     public String readLine() throws IOException {

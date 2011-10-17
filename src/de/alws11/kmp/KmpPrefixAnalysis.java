@@ -1,7 +1,6 @@
 package de.alws11.kmp;
 
 import de.alws11.IDataProvider;
-import de.alws11.IIndexStore;
 
 class KmpPrefixAnalysis {
     public static void forPattern(IDataProvider pattern, IIndexStore prefixes) {

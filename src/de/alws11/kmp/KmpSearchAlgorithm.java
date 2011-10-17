@@ -2,7 +2,6 @@ package de.alws11.kmp;
 
 import de.alws11.IDataProvider;
 import de.alws11.IMatchFound;
-import de.alws11.IIndexStore;
 import de.alws11.MatchFoundArgs;
 
 class KmpSearchAlgorithm {

@@ -23,7 +23,7 @@ public class FileCharArrayEnumerable implements Iterable<char[]> {
     public void Close() {
         try {
             _reader.close();
-        } catch (Exception ex) {
+        } catch (Exception ignored) {
         }
     }
 
@@ -46,9 +46,11 @@ public class FileCharArrayEnumerable implements Iterable<char[]> {
 
         public boolean hasNext() {
             try {
-                if (_lastRead == _buffer.length)
+                if (_lastRead == _buffer.length) {
                     _lastRead = _reader.read(_buffer, 0, _buffer.length);
-                else
+                    if (_lastRead == 0)
+                        _buffer = null;
+                } else
                     _buffer = null;
                 IoReads++;
             } catch (Exception ex) {

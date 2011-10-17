@@ -1,6 +1,6 @@
 package de.alws11.data;
 
-import de.alws11.IIndexStore;
+import de.alws11.kmp.IIndexStore;
 
 public class PrefixData implements IIndexStore {
     private long[] _indices;

@@ -53,4 +53,28 @@ public class SearchSpec {
         List<Long> findings = KmpHelper.findAll("abb", "abc");
         Assert.assertTrue(findings.size() == 0);
     }
+
+    @Test
+    public void occurrenceAtBeginning_MatchAtBeginning() throws Exception {
+        List<Long> findings = KmpHelper.findAll("baaaaa", "baa");
+        Assert.assertTrue(findings.contains((long) 0));
+    }
+
+    @Test
+    public void occurrenceAtEnd_MatchAtBeginning() throws Exception {
+        List<Long> findings = KmpHelper.findAll("aaabaa", "baa");
+        Assert.assertTrue(findings.contains((long) 3));
+    }
+
+    @Test
+    public void occurrenceAtBeginning_MatchAtEnd() throws Exception {
+        List<Long> findings = KmpHelper.findAll("aabaaa", "aab");
+        Assert.assertTrue(findings.contains((long) 0));
+    }
+
+    @Test
+    public void occurrenceAtEnd_MatchAtEnd() throws Exception {
+        List<Long> findings = KmpHelper.findAll("aaaaab", "aab");
+        Assert.assertTrue(findings.contains((long) 3));
+    }
 }
