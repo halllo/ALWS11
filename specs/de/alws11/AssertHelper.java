@@ -22,4 +22,13 @@ public class AssertHelper {
             seed = seed && array1.length() == array2.length;
         return seed;
     }
+
+    public static boolean areSame(String expected, IDataProvider data) {
+        boolean seed = true;
+        for (int i = 0; i < expected.length(); i++) {
+            seed = seed && (expected.charAt(i) == data.getPosition(i));
+        }
+        seed = seed && expected.length() == data.size();
+        return seed;
+    }
 }

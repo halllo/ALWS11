@@ -9,7 +9,7 @@ class KmpPrefixAnalysis {
         long j = -1;
         prefixes.setIndex(i, j);
         while (i < pattern.size()) {
-            while (j >= 0 && !pattern.getPosition(j).equals(pattern.getPosition(i))) {
+            while (j >= 0 && pattern.getPosition(j) != pattern.getPosition(i)) {
                 j = prefixes.getIndex(j);
             }
             i = i + 1;

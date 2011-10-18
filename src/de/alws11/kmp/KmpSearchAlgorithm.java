@@ -9,7 +9,7 @@ class KmpSearchAlgorithm {
         long i = 0;
         long j = 0;
         while (i < data.size()) {
-            while (j >= 0 && !data.getPosition(i).equals(pattern.getPosition(j))) {
+            while (j >= 0 && data.getPosition(i) != pattern.getPosition(j)) {
                 j = prefixes.getIndex(j);
             }
             i = i + 1;

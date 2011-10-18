@@ -1,6 +1,7 @@
 package de.alws11;
 
 public interface IDataProvider {
-    String getPosition(long index);
+    char getPosition(long index);
+
     long size();
 }
