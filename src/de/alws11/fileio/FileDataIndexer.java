@@ -2,19 +2,15 @@ package de.alws11.fileio;
 
 import de.alws11.IDataProvider;
 
-public class FileIndexer implements IDataProvider {
+public class FileDataIndexer implements IDataProvider {
     private char[] _currentBuffer;
     private FileCharArrayEnumerable _fileCharReader;
     private FileCharArrayEnumerable.CharArrayIterator _fileCharIterator;
     private long _currentEnd;
 
-    public FileIndexer(IFileAccess fileAccess, int bufferSize) {
-        try {
-            _fileCharReader = new FileCharArrayEnumerable(fileAccess, bufferSize);
-            initIterator();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public FileDataIndexer(IFileAccess fileAccess, int bufferSize) throws Exception {
+        _fileCharReader = new FileCharArrayEnumerable(fileAccess, bufferSize);
+        initIterator();
     }
 
     private void initIterator() {
@@ -30,7 +26,7 @@ public class FileIndexer implements IDataProvider {
     }
 
     private char getCharFromBuffer(int indexOffset) {
-        if (_currentBuffer != null && _fileCharIterator.GetRealBufferSize() > indexOffset) {
+        if (_currentBuffer != null && indexOffset >= 0 && _fileCharIterator.GetRealBufferSize() > indexOffset) {
             return _currentBuffer[indexOffset];
         } else
             return '\u0000';
