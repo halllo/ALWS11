@@ -38,7 +38,7 @@ public class FileCharArrayEnumerable implements Iterable<char[]> {
         return new CharArrayIterator(_bufferSize);
     }
 
-    class CharArrayIterator implements Iterator<char[]> {
+    public class CharArrayIterator implements Iterator<char[]> {
         char[] _buffer;
         int _lastRead;
 

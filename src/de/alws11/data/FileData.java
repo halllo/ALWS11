@@ -1,14 +1,16 @@
-package de.alws11.fileio;
+package de.alws11.data;
 
 import de.alws11.IDataProvider;
+import de.alws11.fileio.FileCharArrayEnumerable;
+import de.alws11.fileio.IFileAccess;
 
-public class FileDataIndexer implements IDataProvider {
+public class FileData implements IDataProvider {
     private char[] _currentBuffer;
     private FileCharArrayEnumerable _fileCharReader;
     private FileCharArrayEnumerable.CharArrayIterator _fileCharIterator;
     private long _currentEnd;
 
-    public FileDataIndexer(IFileAccess fileAccess, int bufferSize) throws Exception {
+    public FileData(IFileAccess fileAccess, int bufferSize) throws Exception {
         _fileCharReader = new FileCharArrayEnumerable(fileAccess, bufferSize);
         initIterator();
     }
