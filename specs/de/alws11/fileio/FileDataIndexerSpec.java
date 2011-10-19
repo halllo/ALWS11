@@ -14,6 +14,14 @@ public class FileDataIndexerSpec {
     }
 
     @Test
+    public void oneCharsBufferSize2_firstIndexable() throws Exception {
+        IFileAccess content = FileHelper.getLineProvider("0");
+        IDataProvider fileIndexer = new FileDataIndexer(content, 2);
+        Assert.assertEquals(fileIndexer.getPosition(0), '0');
+        Assert.assertEquals(fileIndexer.getPosition(1), '\u0000');
+    }
+
+    @Test
     public void threeCharsBufferSize2_allThreeIndexable() throws Exception {
         IFileAccess content = FileHelper.getLineProvider("012");
         IDataProvider fileIndexer = new FileDataIndexer(content, 2);
@@ -93,5 +101,12 @@ public class FileDataIndexerSpec {
         } catch (Exception ignored) {
             Assert.assertTrue(true);
         }
+    }
+
+    @Test
+    public void noCharsBufferSize1_noneIndexable() throws Exception {
+        IFileAccess content = FileHelper.getLineProvider("");
+        IDataProvider fileIndexer = new FileDataIndexer(content, 1);
+        Assert.assertEquals(fileIndexer.getPosition(0), '\u0000');
     }
 }
