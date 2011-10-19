@@ -1,23 +1,26 @@
-package de.alws11.kmp;
+package de.alws11.KnuthMorrisPratt;
 
-import de.alws11.*;
+import de.alws11.IDataProvider;
+import de.alws11.IMatchFound;
+import de.alws11.ISearch;
+import de.alws11.MatchFoundArgs;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class KmpSearcher implements ISearch {
+public class Searcher implements ISearch {
     public boolean findAllMatches;
     private IIndexStore _prefixes;
 
-    public KmpSearcher(IIndexStore prefixes) {
+    public Searcher(IIndexStore prefixes) {
         findAllMatches = true;
         _prefixes = prefixes;
     }
 
     public List<Long> search(IDataProvider source, IDataProvider pattern) {
         final List<Long> findings = new ArrayList<Long>();
-        KmpPrefixAnalysis.forPattern(pattern, _prefixes);
-        KmpSearchAlgorithm.onData(source, pattern, _prefixes, new IMatchFound() {
+        PrefixAnalysis.forPattern(pattern, _prefixes);
+        SearchAlgorithm.onData(source, pattern, _prefixes, new IMatchFound() {
             public void newMatch(MatchFoundArgs e) {
                 findings.add(e.position);
                 e.shouldContinue = findAllMatches;

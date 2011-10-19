@@ -34,6 +34,7 @@ public class DynamicData implements IDataProvider {
         int i = 0;
         while (i < _parts.size() && _parts.get(i).startIndex <= index) i++;
         DataPart responsiblePart = _parts.get(i - 1);
+        if (responsiblePart.data.length() == 0) return '\u0000';
         long responsiblePartIndex = (index - responsiblePart.startIndex) % responsiblePart.data.length();
         return responsiblePart.data.charAt((int) responsiblePartIndex);
     }

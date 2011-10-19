@@ -1,4 +1,4 @@
-package de.alws11.kmp;
+package de.alws11.KnuthMorrisPratt;
 
 public interface IIndexStore {
     void setIndex(long metaIndex, long index);

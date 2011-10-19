@@ -84,4 +84,17 @@ public class DynamicDataSpec {
         Assert.assertEquals(dd.getPosition((long) Integer.MAX_VALUE + 1), 'b');
         Assert.assertEquals(dd.getPosition((long) Integer.MAX_VALUE + 2), 'c');
     }
+
+    @Test
+    public void emptyData_accessibleByIndex() throws Exception {
+        DynamicData dd = DynamicData.startWith(1, "");
+        Assert.assertTrue(AssertHelper.areSame("", dd));
+    }
+
+    @Test
+    public void emptyPartBigIndex_accessibleByIndex() throws Exception {
+        DynamicData dd = DynamicData.startWith(1, "");
+        Assert.assertEquals(dd.getPosition(0), '\u0000');
+        Assert.assertEquals(dd.getPosition(1), '\u0000');
+    }
 }

@@ -1,8 +1,8 @@
-package de.alws11.kmp;
+package de.alws11.KnuthMorrisPratt;
 
 import de.alws11.IDataProvider;
 
-class KmpPrefixAnalysis {
+public class PrefixAnalysis {
     public static void forPattern(IDataProvider pattern, IIndexStore prefixes) {
         prefixes.requiredSize(pattern.size() + 1);
         long i = 0;
