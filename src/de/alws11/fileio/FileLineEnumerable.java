@@ -11,10 +11,10 @@ public class FileLineEnumerable implements Iterable<String> {
         _reader = reader;
     }
 
-    public void Close() {
+    public void close() {
         try {
             _reader.close();
-        } catch (Exception ex) {
+        } catch (Exception ignored) {
         }
     }
 

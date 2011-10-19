@@ -20,9 +20,16 @@ public class FileCharArrayEnumerable implements Iterable<char[]> {
             throw new Exception("buffer too small");
     }
 
-    public void Close() {
+    public void close() {
         try {
             _reader.close();
+        } catch (Exception ignored) {
+        }
+    }
+
+    public void reset() {
+        try {
+            _reader.reset();
         } catch (Exception ignored) {
         }
     }

@@ -11,10 +11,10 @@ public class FileCharEnumerable implements Iterable<Character> {
         _charArrays = new FileCharArrayEnumerable(reader, bufferSize);
     }
 
-    public void Close() {
+    public void close() {
         try {
-            _charArrays.Close();
-        } catch (Exception ex) {
+            _charArrays.close();
+        } catch (Exception ignored) {
         }
     }
 

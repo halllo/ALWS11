@@ -2,6 +2,8 @@ package de.alws11.fileio.fake;
 
 import de.alws11.fileio.IFileAccess;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 
 public class FileAccess implements IFileAccess {
@@ -37,5 +39,9 @@ public class FileAccess implements IFileAccess {
 
     public void close() throws IOException {
 
+    }
+
+    public void reset() throws IOException {
+        _currentCharIndex = 0;
     }
 }

@@ -6,10 +6,12 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class FileBufferedReader implements IFileAccess {
-    BufferedReader _reader;
+    private BufferedReader _reader;
+    private String _filePath;
 
-    public FileBufferedReader(String filePath) throws FileNotFoundException {
-        _reader = new BufferedReader(new FileReader(filePath));
+    public FileBufferedReader(String filePath) throws IOException {
+        reset();
+        _filePath = filePath;
     }
 
     public int read(char[] buffer, int offset, int length) throws IOException {
@@ -22,5 +24,10 @@ public class FileBufferedReader implements IFileAccess {
 
     public void close() throws IOException {
         _reader.close();
+    }
+
+    public void reset() throws IOException {
+        if (_reader != null) _reader.close();
+        _reader = new BufferedReader(new FileReader(_filePath));
     }
 }

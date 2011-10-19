@@ -8,4 +8,6 @@ public interface IFileAccess {
     String readLine() throws IOException;
 
     void close() throws IOException;
+
+    void reset() throws IOException;
 }
