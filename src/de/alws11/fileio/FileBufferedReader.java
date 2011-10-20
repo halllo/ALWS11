@@ -1,7 +1,6 @@
 package de.alws11.fileio;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -10,8 +9,8 @@ public class FileBufferedReader implements IFileAccess {
     private String _filePath;
 
     public FileBufferedReader(String filePath) throws IOException {
-        reset();
         _filePath = filePath;
+        reset();
     }
 
     public int read(char[] buffer, int offset, int length) throws IOException {
