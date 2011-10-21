@@ -24,4 +24,8 @@ public class StringData implements IDataProvider {
     public long size() {
         return _text.length;
     }
+
+    public void close() {
+
+    }
 }

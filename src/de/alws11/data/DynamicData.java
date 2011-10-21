@@ -43,6 +43,10 @@ public class DynamicData implements IDataProvider {
         return _size;
     }
 
+    public void close() {
+
+    }
+
     private void addDataPart(long repetitions, String data) {
         DataPart newData = new DataPart();
         newData.startIndex = _size;

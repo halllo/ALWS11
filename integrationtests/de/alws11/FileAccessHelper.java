@@ -22,9 +22,12 @@ public class FileAccessHelper {
     }
 
     public static void delete(String file) throws Exception {
-        boolean deleted = new File(file).delete();
-        if (!deleted) {
-            throw new Exception("\"" + file + "\" could not be deleted");
+        File fileToDelete = new File(file);
+        if (fileToDelete.exists()) {
+            boolean deleted = fileToDelete.delete();
+            if (!deleted) {
+                throw new Exception("\"" + file + "\" could not be deleted");
+            }
         }
     }
 

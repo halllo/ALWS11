@@ -18,6 +18,8 @@ public class FileAccessTest {
         Assert.assertEquals(dataIndexer.getPosition(2), 'c');
         Assert.assertEquals(dataIndexer.getPosition(25), 'z');
         Assert.assertEquals(dataIndexer.getPosition(26), '\u0000');
+        dataIndexer.close();
+        FileAccessHelper.delete(TEST_FILE);
     }
 
     @Test
@@ -30,15 +32,20 @@ public class FileAccessTest {
         Assert.assertEquals(dataIndexer.getPosition(1), 'b');
         Assert.assertEquals(dataIndexer.getPosition(2), 'c');
         Assert.assertEquals(dataIndexer.getPosition(26), '\u0000');
+        dataIndexer.close();
+        FileAccessHelper.delete(TEST_FILE);
     }
 
     @Test
     public void fileWriteTwoNumbers_twoLines() throws Exception {
         FileAccessHelper.delete(TEST_FILE);
         FileAccessHelper.writeNumbers(TEST_FILE, 1, 2);
-        String[] lines = FileHelper.getLines(new FileBufferedReader(TEST_FILE), 3);
+        FileBufferedReader fileReader = new FileBufferedReader(TEST_FILE);
+        String[] lines = FileHelper.getLines(fileReader, 3);
         Assert.assertEquals("1", lines[0]);
         Assert.assertEquals("2", lines[1]);
         Assert.assertEquals(null, lines[2]);
+        fileReader.close();
+        FileAccessHelper.delete(TEST_FILE);
     }
 }

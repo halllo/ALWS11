@@ -55,4 +55,8 @@ public class FileData implements IDataProvider {
     public long size() {
         return 0;
     }
+
+    public void close() {
+        _fileCharReader.close();
+    }
 }
