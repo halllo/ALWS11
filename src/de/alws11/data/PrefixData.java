@@ -27,6 +27,10 @@ public class PrefixData implements IIndexStore, IReadOnlyIndexStore {
         return this;
     }
 
+    public void doneCreating() {
+        _currentMetaIndex = 0;
+    }
+
     public long[] getRaw() {
         return _indices;
     }

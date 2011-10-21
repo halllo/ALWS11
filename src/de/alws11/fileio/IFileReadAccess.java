@@ -2,7 +2,7 @@ package de.alws11.fileio;
 
 import java.io.IOException;
 
-public interface IFileAccess {
+public interface IFileReadAccess {
     int read(char[] buffer, int offset, int length) throws IOException;
 
     String readLine() throws IOException;

@@ -7,7 +7,7 @@ public class FileCharEnumerable implements Iterable<Character> {
 
     public long IoReads = 0;
 
-    public FileCharEnumerable(IFileAccess reader, int bufferSize) throws Exception {
+    public FileCharEnumerable(IFileReadAccess reader, int bufferSize) throws Exception {
         _charArrays = new FileCharArrayEnumerable(reader, bufferSize);
     }
 

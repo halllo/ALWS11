@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class FileBufferedReader implements IFileAccess {
+public class FileBufferedReader implements IFileReadAccess {
     private BufferedReader _reader;
     private String _filePath;
 

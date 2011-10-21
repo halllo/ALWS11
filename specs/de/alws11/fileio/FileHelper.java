@@ -3,13 +3,13 @@ package de.alws11.fileio;
 import de.alws11.fileio.fake.FileAccess;
 
 public class FileHelper {
-    public static IFileAccess getLineProvider(String... linesToReturn) throws Exception {
+    public static IFileReadAccess getLineProvider(String... linesToReturn) throws Exception {
         FileAccess readSource = new FileAccess();
         readSource.returnLines(linesToReturn);
         return readSource;
     }
 
-    public static String[] getLines(IFileAccess fileAccess, int expectedLines) throws Exception {
+    public static String[] getLines(IFileReadAccess fileAccess, int expectedLines) throws Exception {
         int lineIndex = 0;
         String[] lineList = new String[expectedLines];
         for (String line : new FileLineEnumerable(fileAccess)) {
@@ -18,7 +18,7 @@ public class FileHelper {
         return lineList;
     }
 
-    public static char[][] getChunks(IFileAccess fileAccess, int bufferSize, int expectedReads) throws Exception {
+    public static char[][] getChunks(IFileReadAccess fileAccess, int bufferSize, int expectedReads) throws Exception {
         int chunkIndex = 0;
         char[][] chunkList = new char[expectedReads][];
         for (char[] chunk : new FileCharArrayEnumerable(fileAccess, bufferSize)) {
@@ -27,7 +27,7 @@ public class FileHelper {
         return chunkList;
     }
 
-    public static char[] getChars(IFileAccess fileAccess, int bufferSize, int expectedReads) throws Exception {
+    public static char[] getChars(IFileReadAccess fileAccess, int bufferSize, int expectedReads) throws Exception {
         int charIndex = 0;
         char[] charList = new char[expectedReads];
         for (char currentChar : new FileCharEnumerable(fileAccess, bufferSize)) {

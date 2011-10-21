@@ -1,11 +1,13 @@
 package de.alws11.KnuthMorrisPratt;
 
 public interface IIndexStore {
+    void requiredSize(long size);
+
     void pushIndex(long index);
 
-    long getIndex(long metaIndex);
+    void doneCreating();
 
-    void requiredSize(long size);
+    long getIndex(long metaIndex);
 
     IReadOnlyIndexStore asReadOnly();
 }

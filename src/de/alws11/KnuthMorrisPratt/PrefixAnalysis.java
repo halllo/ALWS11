@@ -16,5 +16,6 @@ public class PrefixAnalysis {
             j = j + 1;
             prefixes.pushIndex(j);
         }
+        prefixes.doneCreating();
     }
 }

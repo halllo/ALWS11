@@ -3,7 +3,7 @@ package de.alws11.fileio;
 import java.util.Iterator;
 
 public class FileCharArrayEnumerable implements Iterable<char[]> {
-    IFileAccess _reader;
+    IFileReadAccess _reader;
     int _bufferSize;
 
     public int GetBufferSize() {
@@ -12,7 +12,7 @@ public class FileCharArrayEnumerable implements Iterable<char[]> {
 
     public long IoReads = 0;
 
-    public FileCharArrayEnumerable(IFileAccess reader, int bufferSize)
+    public FileCharArrayEnumerable(IFileReadAccess reader, int bufferSize)
             throws Exception {
         _reader = reader;
         _bufferSize = bufferSize;

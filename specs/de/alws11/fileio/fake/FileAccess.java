@@ -1,12 +1,10 @@
 package de.alws11.fileio.fake;
 
-import de.alws11.fileio.IFileAccess;
+import de.alws11.fileio.IFileReadAccess;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 
-public class FileAccess implements IFileAccess {
+public class FileAccess implements IFileReadAccess {
     private String[] _lines;
     private int _currentLineIndex;
     private int _currentCharIndex;

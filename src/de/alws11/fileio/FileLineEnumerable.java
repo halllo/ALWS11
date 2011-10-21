@@ -3,11 +3,11 @@ package de.alws11.fileio;
 import java.util.Iterator;
 
 public class FileLineEnumerable implements Iterable<String> {
-    IFileAccess _reader;
+    IFileReadAccess _reader;
 
     public long IoReads = 0;
 
-    public FileLineEnumerable(IFileAccess reader) throws Exception {
+    public FileLineEnumerable(IFileReadAccess reader) throws Exception {
         _reader = reader;
     }
 
@@ -18,11 +18,18 @@ public class FileLineEnumerable implements Iterable<String> {
         }
     }
 
+    public void reset() {
+        try {
+            _reader.reset();
+        } catch (Exception ignored) {
+        }
+    }
+
     public Iterator<String> iterator() {
         return new StringIterator();
     }
 
-    class StringIterator implements Iterator<String> {
+    public class StringIterator implements Iterator<String> {
         String _currentLine;
 
         public StringIterator() {

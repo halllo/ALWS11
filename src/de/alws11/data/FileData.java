@@ -2,7 +2,7 @@ package de.alws11.data;
 
 import de.alws11.IDataProvider;
 import de.alws11.fileio.FileCharArrayEnumerable;
-import de.alws11.fileio.IFileAccess;
+import de.alws11.fileio.IFileReadAccess;
 
 public class FileData implements IDataProvider {
     private char[] _currentBuffer;
@@ -10,7 +10,7 @@ public class FileData implements IDataProvider {
     private FileCharArrayEnumerable.CharArrayIterator _fileCharIterator;
     private long _currentEnd;
 
-    public FileData(IFileAccess fileAccess, int bufferSize) throws Exception {
+    public FileData(IFileReadAccess fileAccess, int bufferSize) throws Exception {
         _fileCharReader = new FileCharArrayEnumerable(fileAccess, bufferSize);
         initIterator();
     }
