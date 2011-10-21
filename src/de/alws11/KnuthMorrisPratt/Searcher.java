@@ -20,7 +20,7 @@ public class Searcher implements ISearch {
     public List<Long> search(IDataProvider source, IDataProvider pattern) {
         final List<Long> findings = new ArrayList<Long>();
         PrefixAnalysis.forPattern(pattern, _prefixes);
-        SearchAlgorithm.onData(source, pattern, _prefixes, new IMatchFound() {
+        SearchAlgorithm.start(source, pattern, _prefixes.asReadOnly(), new IMatchFound() {
             public void newMatch(MatchFoundArgs e) {
                 findings.add(e.position);
                 e.shouldContinue = findAllMatches;

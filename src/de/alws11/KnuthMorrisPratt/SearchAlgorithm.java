@@ -5,7 +5,7 @@ import de.alws11.IMatchFound;
 import de.alws11.MatchFoundArgs;
 
 public class SearchAlgorithm {
-    public static void onData(IDataProvider data, IDataProvider pattern, IIndexStore prefixes, IMatchFound found) {
+    public static void start(IDataProvider data, IDataProvider pattern, IReadOnlyIndexStore prefixes, IMatchFound found) {
         if (pattern.size() > 0) {
             long i = 0;
             long j = 0;

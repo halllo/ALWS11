@@ -7,14 +7,14 @@ public class PrefixAnalysis {
         prefixes.requiredSize(pattern.size() + 1);
         long i = 0;
         long j = -1;
-        prefixes.setIndex(i, j);
+        prefixes.pushIndex(j);
         while (i < pattern.size()) {
             while (j >= 0 && pattern.getPosition(j) != pattern.getPosition(i)) {
                 j = prefixes.getIndex(j);
             }
             i = i + 1;
             j = j + 1;
-            prefixes.setIndex(i, j);
+            prefixes.pushIndex(j);
         }
     }
 }

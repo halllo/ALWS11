@@ -1,16 +1,18 @@
 package de.alws11.data;
 
 import de.alws11.KnuthMorrisPratt.IIndexStore;
+import de.alws11.KnuthMorrisPratt.IReadOnlyIndexStore;
 
-public class PrefixData implements IIndexStore {
+public class PrefixData implements IIndexStore, IReadOnlyIndexStore {
     private long[] _indices;
+    private int _currentMetaIndex;
 
     public PrefixData() {
-
+        _currentMetaIndex = 0;
     }
 
-    public void setIndex(long metaIndex, long index) {
-        _indices[(int) metaIndex] = index;
+    public void pushIndex(long index) {
+        _indices[_currentMetaIndex++] = index;
     }
 
     public long getIndex(long metaIndex) {
@@ -19,6 +21,10 @@ public class PrefixData implements IIndexStore {
 
     public void requiredSize(long size) {
         _indices = new long[(int) size];
+    }
+
+    public IReadOnlyIndexStore asReadOnly() {
+        return this;
     }
 
     public long[] getRaw() {
