@@ -9,5 +9,7 @@ public interface IIndexStore {
 
     long getIndex(long metaIndex);
 
+    void close();
+
     IReadOnlyIndexStore asReadOnly();
 }

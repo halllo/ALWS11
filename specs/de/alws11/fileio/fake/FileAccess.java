@@ -1,45 +1,51 @@
 package de.alws11.fileio.fake;
 
 import de.alws11.fileio.IFileReadAccess;
+import de.alws11.fileio.IFileWriteAccess;
 
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 
-public class FileAccess implements IFileReadAccess {
-    private String[] _lines;
+public class FileAccess implements IFileReadAccess, IFileWriteAccess {
+    private ArrayList<String> _lines;
     private int _currentLineIndex;
     private int _currentCharIndex;
 
     public FileAccess() {
-
+        _lines = new ArrayList<String>();
     }
 
     public void returnLines(String... lines) {
-        _lines = lines;
-        _currentLineIndex = 0;
-        _currentCharIndex = 0;
+        Collections.addAll(_lines, lines);
+        reset();
     }
 
-    public int read(char[] buffer, int offset, int length) throws IOException {
+    public int read(char[] buffer, int offset, int length) {
         int i = 0;
-        for (; i < length && _currentCharIndex < _lines[0].length(); i++, _currentCharIndex++) {
-            buffer[i] = _lines[0].charAt(_currentCharIndex);
+        for (; i < length && _currentCharIndex < _lines.get(0).length(); i++, _currentCharIndex++) {
+            buffer[i] = _lines.get(0).charAt(_currentCharIndex);
         }
         return i;
     }
 
-    public String readLine() throws IOException {
-        if (_currentLineIndex < _lines.length) {
-            return _lines[_currentLineIndex++];
+    public String readLine() {
+        if (_currentLineIndex < _lines.size()) {
+            return _lines.get(_currentLineIndex++);
         } else {
             return null;
         }
     }
 
-    public void close() throws IOException {
+    public void writeNumber(long number) {
+        _lines.add(String.valueOf(number));
+    }
+
+    public void close() {
 
     }
 
-    public void reset() throws IOException {
+    public void reset() {
         _currentCharIndex = 0;
+        _currentLineIndex = 0;
     }
 }

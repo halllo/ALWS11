@@ -14,7 +14,7 @@ public class PrefixFileData implements IIndexStore {
     private FileLineEnumerable.StringIterator _fileLineIterator;
     private long _currentMetaIndex;
 
-    public PrefixFileData(IFileReadAccess fileRead, IFileWriteAccess fileWrite, int bufferSize) throws Exception {
+    public PrefixFileData(IFileWriteAccess fileWrite, IFileReadAccess fileRead) throws Exception {
         _fileWrite = fileWrite;
         _fileLineReader = new FileLineEnumerable(fileRead);
         initIterator();
@@ -27,7 +27,7 @@ public class PrefixFileData implements IIndexStore {
     }
 
     public void requiredSize(long size) {
-        //ignore
+        //ignored
     }
 
     public void pushIndex(long index) {
@@ -38,9 +38,38 @@ public class PrefixFileData implements IIndexStore {
     }
 
     public long getIndex(long metaIndex) {
-        //todo return line of metaIndex
-        // _currentMetaIndex != metaIndex ?
-        return _currentMetaIndex++;
+        resetIteratorIfJumpRequired(metaIndex);
+        boolean hasIndex = iterateToRequestedIndex(metaIndex);
+        return getCurrentIndexFromIterator(metaIndex, hasIndex);
+    }
+
+    public void close() {
+        _fileLineReader.close();
+        try {
+            _fileWrite.close();
+        } catch (IOException ignored) {
+        }
+    }
+
+    private void resetIteratorIfJumpRequired(long metaIndex) {
+        if (metaIndex < _currentMetaIndex) {
+            initIterator();
+        }
+    }
+
+    private boolean iterateToRequestedIndex(long metaIndex) {
+        boolean hasMore = true;
+        while (hasMore && metaIndex >= _currentMetaIndex) {
+            hasMore = _fileLineIterator.hasNext();
+            _currentMetaIndex++;
+        }
+        return hasMore;
+    }
+
+    private long getCurrentIndexFromIterator(long metaIndex, boolean hasMore) {
+        if (hasMore && metaIndex >= 0) {
+            return Long.parseLong(_fileLineIterator.next());
+        } else return -1;
     }
 
     public void doneCreating() {

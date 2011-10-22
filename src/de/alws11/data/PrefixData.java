@@ -23,6 +23,10 @@ public class PrefixData implements IIndexStore, IReadOnlyIndexStore {
         _indices = new long[(int) size];
     }
 
+    public void close() {
+
+    }
+
     public IReadOnlyIndexStore asReadOnly() {
         return this;
     }

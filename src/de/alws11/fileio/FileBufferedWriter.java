@@ -14,6 +14,7 @@ public class FileBufferedWriter implements IFileWriteAccess {
     public void writeNumber(long number) throws IOException {
         _writer.write(String.valueOf(number));
         _writer.newLine();
+        _writer.flush();
     }
 
     public void close() throws IOException {
