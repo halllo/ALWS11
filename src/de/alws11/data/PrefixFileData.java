@@ -38,9 +38,17 @@ public class PrefixFileData implements IIndexStore {
     }
 
     public long getIndex(long metaIndex) {
+        prepareWriterForRead();
         resetIteratorIfJumpRequired(metaIndex);
         boolean hasIndex = iterateToRequestedIndex(metaIndex);
         return getCurrentIndexFromIterator(metaIndex, hasIndex);
+    }
+
+    private void prepareWriterForRead() {
+        try {
+            _fileWrite.prepareForRead();
+        } catch (IOException ignored) {
+        }
     }
 
     public void close() {

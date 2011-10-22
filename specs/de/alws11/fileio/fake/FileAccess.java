@@ -40,8 +40,12 @@ public class FileAccess implements IFileReadAccess, IFileWriteAccess {
         _lines.add(String.valueOf(number));
     }
 
-    public void close() {
+    public void prepareForRead() {
+        //ignored
+    }
 
+    public void close() {
+        //ignored
     }
 
     public void reset() {

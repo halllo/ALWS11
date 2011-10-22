@@ -5,5 +5,7 @@ import java.io.IOException;
 public interface IFileWriteAccess {
     void writeNumber(long number) throws IOException;
 
+    void prepareForRead() throws IOException;
+
     void close() throws IOException;
 }

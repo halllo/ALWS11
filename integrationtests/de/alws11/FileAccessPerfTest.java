@@ -6,7 +6,7 @@ import org.junit.Test;
 
 public class FileAccessPerfTest {
     private final String TEST_FILE = "E:\\test.txt";
-    private final long COUNT_OF_INDICES = 131072;
+    private final long COUNT_OF_INDICES = 2000000;
 
     ///*
     @Test
