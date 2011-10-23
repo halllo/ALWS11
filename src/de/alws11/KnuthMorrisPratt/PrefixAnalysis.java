@@ -1,6 +1,7 @@
 package de.alws11.KnuthMorrisPratt;
 
 import de.alws11.IDataProvider;
+import de.alws11.IIndexStore;
 
 public class PrefixAnalysis {
     public static void forPattern(IDataProvider pattern, IIndexStore prefixes) {

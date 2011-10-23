@@ -1,4 +1,4 @@
-package de.alws11.KnuthMorrisPratt;
+package de.alws11;
 
 public interface IIndexStore {
     void requiredSize(long size);

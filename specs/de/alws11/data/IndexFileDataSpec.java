@@ -1,10 +1,11 @@
 package de.alws11.data;
 
-import de.alws11.KnuthMorrisPratt.IIndexStore;
+import de.alws11.IIndexStore;
+import de.alws11.IReadOnlyIndexStore;
 import junit.framework.Assert;
 import org.junit.Test;
 
-public class PrefixFileDataSpec {
+public class IndexFileDataSpec {
     @Test
     public void noIndexWritten_noIndexReadable() throws Exception {
         IIndexStore indices = DataHelper.getIndexStore();
@@ -75,5 +76,15 @@ public class PrefixFileDataSpec {
         indices.pushIndex(1);
         indices.pushIndex(2);
         Assert.assertEquals(-1, indices.getIndex(-1));
+    }
+
+    @Test
+    public void twoIndicesWritten_bothReadableAsReadOnly() throws Exception {
+        IIndexStore indices = DataHelper.getIndexStore();
+        indices.pushIndex(1);
+        indices.pushIndex(2);
+        IReadOnlyIndexStore readOnlyIndices = indices.asReadOnly();
+        Assert.assertEquals(1, readOnlyIndices.getIndex(0));
+        Assert.assertEquals(2, readOnlyIndices.getIndex(1));
     }
 }

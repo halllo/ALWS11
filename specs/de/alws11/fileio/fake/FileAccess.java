@@ -36,8 +36,12 @@ public class FileAccess implements IFileReadAccess, IFileWriteAccess {
         }
     }
 
-    public void writeNumber(long number) {
-        _lines.add(String.valueOf(number));
+    public long getFileSize() {
+        return 0;
+    }
+
+    public void writeLine(String line) {
+        _lines.add(line);
     }
 
     public void prepareForRead() {

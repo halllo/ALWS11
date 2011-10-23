@@ -1,20 +1,20 @@
 package de.alws11.data;
 
-import de.alws11.KnuthMorrisPratt.IIndexStore;
-import de.alws11.KnuthMorrisPratt.IReadOnlyIndexStore;
+import de.alws11.IIndexStore;
+import de.alws11.IReadOnlyIndexStore;
 import de.alws11.fileio.FileLineEnumerable;
 import de.alws11.fileio.IFileReadAccess;
 import de.alws11.fileio.IFileWriteAccess;
 
 import java.io.IOException;
 
-public class PrefixFileData implements IIndexStore {
+public class IndexFileData implements IIndexStore, IReadOnlyIndexStore {
     private IFileWriteAccess _fileWrite;
     private FileLineEnumerable _fileLineReader;
     private FileLineEnumerable.StringIterator _fileLineIterator;
     private long _currentMetaIndex;
 
-    public PrefixFileData(IFileWriteAccess fileWrite, IFileReadAccess fileRead) throws Exception {
+    public IndexFileData(IFileWriteAccess fileWrite, IFileReadAccess fileRead) throws Exception {
         _fileWrite = fileWrite;
         _fileLineReader = new FileLineEnumerable(fileRead);
         initIterator();
@@ -32,7 +32,7 @@ public class PrefixFileData implements IIndexStore {
 
     public void pushIndex(long index) {
         try {
-            _fileWrite.writeNumber(index);
+            _fileWrite.writeLine(String.valueOf(index));
         } catch (IOException ignored) {
         }
     }
@@ -88,6 +88,6 @@ public class PrefixFileData implements IIndexStore {
     }
 
     public IReadOnlyIndexStore asReadOnly() {
-        return null;
+        return this;
     }
 }

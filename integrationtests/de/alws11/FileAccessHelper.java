@@ -1,8 +1,7 @@
 package de.alws11;
 
-import de.alws11.KnuthMorrisPratt.IIndexStore;
 import de.alws11.data.FileData;
-import de.alws11.data.PrefixFileData;
+import de.alws11.data.IndexFileData;
 import de.alws11.fileio.FileBufferedReader;
 import de.alws11.fileio.FileBufferedWriter;
 import de.alws11.fileio.IFileReadAccess;
@@ -17,7 +16,7 @@ public class FileAccessHelper {
     }
 
     public static IIndexStore getIndexStore(String filePath) throws Exception {
-        return new PrefixFileData(
+        return new IndexFileData(
                 new FileBufferedWriter(filePath), new FileBufferedReader(filePath)
         );
     }
@@ -29,12 +28,18 @@ public class FileAccessHelper {
     public static void writeNumbers(String fileToWrite, long... numbers) throws IOException {
         FileBufferedWriter fbw = new FileBufferedWriter(fileToWrite);
         for (long number : numbers) {
-            fbw.writeNumber(number);
+            fbw.writeLine(String.valueOf(number));
         }
         fbw.close();
     }
 
-    public static void delete(String file) throws Exception {
+    public static void delete(String... files) throws Exception {
+        for (String file : files) {
+            delete(file);
+        }
+    }
+
+    private static void delete(String file) throws Exception {
         File fileToDelete = new File(file);
         if (fileToDelete.exists()) {
             boolean deleted = fileToDelete.delete();

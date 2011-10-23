@@ -2,6 +2,7 @@ package de.alws11.KnuthMorrisPratt;
 
 import de.alws11.IDataProvider;
 import de.alws11.IMatchFound;
+import de.alws11.IReadOnlyIndexStore;
 import de.alws11.MatchFoundArgs;
 
 public class SearchAlgorithm {

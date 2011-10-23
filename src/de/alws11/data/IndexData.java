@@ -1,13 +1,13 @@
 package de.alws11.data;
 
-import de.alws11.KnuthMorrisPratt.IIndexStore;
-import de.alws11.KnuthMorrisPratt.IReadOnlyIndexStore;
+import de.alws11.IIndexStore;
+import de.alws11.IReadOnlyIndexStore;
 
-public class PrefixData implements IIndexStore, IReadOnlyIndexStore {
+public class IndexData implements IIndexStore, IReadOnlyIndexStore {
     private long[] _indices;
     private int _currentMetaIndex;
 
-    public PrefixData() {
+    public IndexData() {
         _currentMetaIndex = 0;
     }
 

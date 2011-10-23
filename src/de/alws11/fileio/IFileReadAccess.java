@@ -7,6 +7,8 @@ public interface IFileReadAccess {
 
     String readLine() throws IOException;
 
+    long getFileSize();
+
     void close() throws IOException;
 
     void reset() throws IOException;

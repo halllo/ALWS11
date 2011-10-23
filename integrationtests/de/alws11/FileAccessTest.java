@@ -1,6 +1,5 @@
 package de.alws11;
 
-import de.alws11.KnuthMorrisPratt.IIndexStore;
 import de.alws11.fileio.FileHelper;
 import de.alws11.fileio.IFileReadAccess;
 import junit.framework.Assert;

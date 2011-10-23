@@ -1,16 +1,28 @@
 package de.alws11.fileio;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
 public class FileBufferedReader implements IFileReadAccess {
     private BufferedReader _reader;
     private String _filePath;
+    private long _fileSize;
 
     public FileBufferedReader(String filePath) throws IOException {
         _filePath = filePath;
+        _fileSize = getCurrentFileSize();
         reset();
+    }
+
+    private long getCurrentFileSize() {
+        File f = new File(_filePath);
+        return f.length();
+    }
+
+    public long getFileSize() {
+        return _fileSize;
     }
 
     public int read(char[] buffer, int offset, int length) throws IOException {

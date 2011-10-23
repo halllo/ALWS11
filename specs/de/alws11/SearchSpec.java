@@ -1,5 +1,6 @@
 package de.alws11;
 
+import de.alws11.data.StringData;
 import junit.framework.Assert;
 import org.junit.Test;
 
@@ -7,7 +8,7 @@ import java.util.List;
 
 public class SearchSpec {
     @Test
-    public void wikipedia_sample1() throws Exception {
+    public void wikipediaSample1_singleMatch() throws Exception {
         List<Long> findings = SearchHelper.findAll("abababcbababcababcab", "ababcabab");
         Assert.assertTrue(findings.contains((long) 8));
     }
@@ -93,6 +94,13 @@ public class SearchSpec {
     @Test
     public void emptySearchDataEmptySearchPattern_noMatch() throws Exception {
         List<Long> findings = SearchHelper.findAll("", "");
+        Assert.assertTrue(findings.size() == 0);
+    }
+
+    @Test
+    public void noSearchPattern_noMatches() throws Exception {
+        ISearch search = SearchHelper.getSearchProvider(true);
+        List<Long> findings = search.inSource(new StringData("abc"));
         Assert.assertTrue(findings.size() == 0);
     }
 }

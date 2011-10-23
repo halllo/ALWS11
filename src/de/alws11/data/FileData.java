@@ -8,10 +8,12 @@ public class FileData implements IDataProvider {
     private char[] _currentBuffer;
     private FileCharArrayEnumerable _fileCharReader;
     private FileCharArrayEnumerable.CharArrayIterator _fileCharIterator;
+    private IFileReadAccess _fileAccess;
     private long _currentEnd;
 
     public FileData(IFileReadAccess fileAccess, int bufferSize) throws Exception {
-        _fileCharReader = new FileCharArrayEnumerable(fileAccess, bufferSize);
+        _fileAccess = fileAccess;
+        _fileCharReader = new FileCharArrayEnumerable(_fileAccess, bufferSize);
         initIterator();
     }
 
@@ -53,7 +55,7 @@ public class FileData implements IDataProvider {
     }
 
     public long size() {
-        return 0;
+        return _fileAccess.getFileSize();
     }
 
     public void close() {

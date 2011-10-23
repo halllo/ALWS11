@@ -1,6 +1,5 @@
 package de.alws11;
 
-import de.alws11.KnuthMorrisPratt.IIndexStore;
 import junit.framework.Assert;
 import org.junit.Test;
 
@@ -8,7 +7,6 @@ public class FileAccessPerfTest {
     private final String TEST_FILE = "E:\\test.txt";
     private final long COUNT_OF_INDICES = 2000000;
 
-    ///*
     @Test
     public void manyIndicesWritten_firstTwoReadable() throws Exception {
         FileAccessHelper.delete(TEST_FILE);
@@ -34,5 +32,4 @@ public class FileAccessPerfTest {
         indices.close();
         FileAccessHelper.delete(TEST_FILE);
     }
-    //*/
 }
