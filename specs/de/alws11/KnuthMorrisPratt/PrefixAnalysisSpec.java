@@ -62,6 +62,13 @@ public class PrefixAnalysisSpec {
     }
 
     @Test
+    public void length4_twoPrefixes() throws Exception {
+        long[] actualPrefixes = PrefixHelper.prefixesOf("aaab");
+        long[] expectedPrefixes = AssertHelper.arrayOfLongs(-1, 0, 1, 2, 0);
+        Assert.assertTrue(AssertHelper.areSame(actualPrefixes, expectedPrefixes));
+    }
+
+    @Test
     public void length1_noPrefix() throws Exception {
         long[] actualPrefixes = PrefixHelper.prefixesOf("a");
         long[] expectedPrefixes = AssertHelper.arrayOfLongs(-1, 0);

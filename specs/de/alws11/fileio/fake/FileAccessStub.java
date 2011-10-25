@@ -5,32 +5,33 @@ import de.alws11.fileio.IFileWriteAccess;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
-public class FileAccess implements IFileReadAccess, IFileWriteAccess {
-    private ArrayList<String> _lines;
+public class FileAccessStub implements IFileReadAccess, IFileWriteAccess {
+    public List<String> lines;
     private int _currentLineIndex;
     private int _currentCharIndex;
 
-    public FileAccess() {
-        _lines = new ArrayList<String>();
+    public FileAccessStub() {
+        lines = new ArrayList<String>();
     }
 
     public void returnLines(String... lines) {
-        Collections.addAll(_lines, lines);
+        Collections.addAll(this.lines, lines);
         reset();
     }
 
     public int read(char[] buffer, int offset, int length) {
         int i = 0;
-        for (; i < length && _currentCharIndex < _lines.get(0).length(); i++, _currentCharIndex++) {
-            buffer[i] = _lines.get(0).charAt(_currentCharIndex);
+        for (; i < length && _currentCharIndex < lines.get(0).length(); i++, _currentCharIndex++) {
+            buffer[i] = lines.get(0).charAt(_currentCharIndex);
         }
         return i;
     }
 
     public String readLine() {
-        if (_currentLineIndex < _lines.size()) {
-            return _lines.get(_currentLineIndex++);
+        if (_currentLineIndex < lines.size()) {
+            return lines.get(_currentLineIndex++);
         } else {
             return null;
         }
@@ -41,7 +42,7 @@ public class FileAccess implements IFileReadAccess, IFileWriteAccess {
     }
 
     public void writeLine(String line) {
-        _lines.add(line);
+        lines.add(line);
     }
 
     public void prepareForRead() {

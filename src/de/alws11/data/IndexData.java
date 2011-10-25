@@ -19,7 +19,7 @@ public class IndexData implements IIndexStore, IReadOnlyIndexStore {
         return _indices[(int) metaIndex];
     }
 
-    public void requiredSize(long size) {
+    public void setRequiredSize(long size) {
         _indices = new long[(int) size];
     }
 

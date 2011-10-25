@@ -11,7 +11,7 @@ public class SearchTest {
     private final String INDICES_FILE = "E:\\indices.txt";
 
     @Test
-    public void searchWikipediaSample1OnFiles_singleMatchFound() throws Exception {
+    public void searchWikipediaSample1OnSingleIndexFile_singleMatchFound() throws Exception {
         FileAccessHelper.create(SOURCE_FILE, "abababcbababcababcab");
         FileAccessHelper.create(PATTERN_FILE, "ababcabab");
 
@@ -26,6 +26,16 @@ public class SearchTest {
         Assert.assertTrue(findings.size() == 1);
 
         SearchIntegrationHelper.close(indices, pattern, source);
+        FileAccessHelper.delete(SOURCE_FILE, PATTERN_FILE, INDICES_FILE);
+    }
+
+    @Test
+    public void searchWikipediaSample1OnMultipleIndexFiles_singleMatchFound() throws Exception {
+        FileAccessHelper.create(SOURCE_FILE, "abababcbababcababcab");
+        FileAccessHelper.create(PATTERN_FILE, "ababcabab");
+
+        //todo
+
         FileAccessHelper.delete(SOURCE_FILE, PATTERN_FILE, INDICES_FILE);
     }
 }

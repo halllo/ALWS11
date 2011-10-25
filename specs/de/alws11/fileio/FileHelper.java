@@ -1,10 +1,10 @@
 package de.alws11.fileio;
 
-import de.alws11.fileio.fake.FileAccess;
+import de.alws11.fileio.fake.FileAccessStub;
 
 public class FileHelper {
     public static IFileReadAccess getLineProvider(String... linesToReturn) throws Exception {
-        FileAccess readSource = new FileAccess();
+        FileAccessStub readSource = new FileAccessStub();
         readSource.returnLines(linesToReturn);
         return readSource;
     }

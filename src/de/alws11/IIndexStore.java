@@ -1,7 +1,7 @@
 package de.alws11;
 
 public interface IIndexStore {
-    void requiredSize(long size);
+    void setRequiredSize(long size);
 
     void pushIndex(long index);
 

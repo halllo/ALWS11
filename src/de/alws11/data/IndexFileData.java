@@ -26,7 +26,7 @@ public class IndexFileData implements IIndexStore, IReadOnlyIndexStore {
         _currentMetaIndex = 0;
     }
 
-    public void requiredSize(long size) {
+    public void setRequiredSize(long size) {
         //ignored
     }
 

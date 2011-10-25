@@ -5,7 +5,7 @@ import de.alws11.IIndexStore;
 
 public class PrefixAnalysis {
     public static void forPattern(IDataProvider pattern, IIndexStore prefixes) {
-        prefixes.requiredSize(pattern.size() + 1);
+        prefixes.setRequiredSize(pattern.size() + 1);
         long i = 0;
         long j = -1;
         prefixes.pushIndex(j);
