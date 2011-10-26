@@ -50,7 +50,7 @@ public class FileAccessStub implements IFileReadAccess, IFileWriteAccess {
     }
 
     public void close() {
-        //ignored
+        reset();
     }
 
     public void reset() {

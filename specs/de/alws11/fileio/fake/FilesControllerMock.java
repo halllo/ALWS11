@@ -16,6 +16,13 @@ public class FilesControllerMock implements IFilesController {
     public Dictionary<String, IFileReadAccess> readers;
     public Dictionary<String, IFileWriteAccess> writers;
 
+    public FileAccessStub newFileAccessStub(String fileName) {
+        FileAccessStub reader = new FileAccessStub();
+        writers.put(fileName, reader);
+        readers.put(fileName, reader);
+        return reader;
+    }
+
     public FilesControllerMock() {
         calls_to_createFile = new ArrayList<String>();
         calls_to_getReaderForFile = new ArrayList<String>();

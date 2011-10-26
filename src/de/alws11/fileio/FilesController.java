@@ -3,10 +3,10 @@ package de.alws11.fileio;
 import java.io.File;
 import java.io.IOException;
 
-public class FileController implements IFilesController {
+public class FilesController implements IFilesController {
     private String _folder;
 
-    public FileController(String folder) {
+    public FilesController(String folder) {
         _folder = folder;
     }
 

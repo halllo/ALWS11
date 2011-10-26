@@ -9,7 +9,7 @@ public class FileAccessTest {
     private final String TEST_FILE = "E:\\test.txt";
 
     @Test
-    public void fileBuffersize2_IndexableForwards() throws Exception {
+    public void fileBuffersize2_indexableForwards() throws Exception {
         FileAccessHelper.create(TEST_FILE, "abcdefghijklmnopqrstuvwxyz");
         IDataProvider dataIndexer = FileAccessHelper.getDataProvider(TEST_FILE, 2);
         Assert.assertEquals('\u0000', dataIndexer.getPosition(-1));
@@ -23,7 +23,18 @@ public class FileAccessTest {
     }
 
     @Test
-    public void fileBuffersize2_IndexableForwardsBackwards() throws Exception {
+    public void fileBuffersize2FileSize2_bothRead() throws Exception {
+        FileAccessHelper.create(TEST_FILE, "ab");
+        IDataProvider dataIndexer = FileAccessHelper.getDataProvider(TEST_FILE, 2);
+        Assert.assertEquals('a', dataIndexer.getPosition(0));
+        Assert.assertEquals('b', dataIndexer.getPosition(1));
+        Assert.assertEquals('\u0000', dataIndexer.getPosition(2));
+        dataIndexer.close();
+        FileAccessHelper.delete(TEST_FILE);
+    }
+
+    @Test
+    public void fileBuffersize2_indexableForwardsBackwards() throws Exception {
         FileAccessHelper.create(TEST_FILE, "abcdefghijklmnopqrstuvwxyz");
         IDataProvider dataIndexer = FileAccessHelper.getDataProvider(TEST_FILE, 2);
         Assert.assertEquals('\u0000', dataIndexer.getPosition(-1));

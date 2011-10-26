@@ -88,9 +88,7 @@ public class IndexFilesDataSpec {
     @Test
     public void fiveIndicesWrittenBufferSize2_firstReadable() throws Exception {
         FilesControllerMock filesControl = new FilesControllerMock();
-        FileAccessStub reader = new FileAccessStub();
-        filesControl.writers.put("0.indices", reader);
-        filesControl.readers.put("0.indices", reader);
+        filesControl.newFileAccessStub("0.indices");
         IIndexStore indices = new IndexFilesData(filesControl, 2);
         DataHelper.pushIndices(indices, 1, 2, 3, 4, 5);
         Assert.assertEquals(1, indices.getIndex(0));
@@ -99,20 +97,26 @@ public class IndexFilesDataSpec {
     @Test
     public void fiveIndicesWrittenBufferSize1_firstReadable() throws Exception {
         FilesControllerMock filesControl = new FilesControllerMock();
-        FileAccessStub reader = new FileAccessStub();
-        filesControl.writers.put("0.indices", reader);
-        filesControl.readers.put("0.indices", reader);
+        filesControl.newFileAccessStub("0.indices");
         IIndexStore indices = new IndexFilesData(filesControl, 1);
         DataHelper.pushIndices(indices, 1, 2, 3, 4, 5);
         Assert.assertEquals(1, indices.getIndex(0));
     }
 
     @Test
+    public void fiveIndicesWrittenBufferSize1_firstReadableTwice() throws Exception {
+        FilesControllerMock filesControl = new FilesControllerMock();
+        filesControl.newFileAccessStub("0.indices");
+        IIndexStore indices = new IndexFilesData(filesControl, 1);
+        DataHelper.pushIndices(indices, 1, 2, 3, 4, 5);
+        Assert.assertEquals(1, indices.getIndex(0));
+        Assert.assertEquals(1, indices.getIndex(0));
+    }
+
+    @Test
     public void fiveIndicesWrittenBufferSize0_exception() throws Exception {
         FilesControllerMock filesControl = new FilesControllerMock();
-        FileAccessStub reader = new FileAccessStub();
-        filesControl.writers.put("0.indices", reader);
-        filesControl.readers.put("0.indices", reader);
+        filesControl.newFileAccessStub("0.indices");
         try {
             new IndexFilesData(filesControl, 0);
             Assert.fail();
@@ -124,9 +128,7 @@ public class IndexFilesDataSpec {
     @Test
     public void fiveIndicesWrittenBufferSize2_oneBeforeFirstNotReadable() throws Exception {
         FilesControllerMock filesControl = new FilesControllerMock();
-        FileAccessStub reader = new FileAccessStub();
-        filesControl.writers.put("0.indices", reader);
-        filesControl.readers.put("0.indices", reader);
+        filesControl.newFileAccessStub("0.indices");
         IIndexStore indices = new IndexFilesData(filesControl, 2);
         DataHelper.pushIndices(indices, 1, 2, 3, 4, 5);
         Assert.assertEquals(-1, indices.getIndex(-1));
@@ -143,9 +145,7 @@ public class IndexFilesDataSpec {
     @Test
     public void sixIndicesWrittenBufferSize2_readableRegardlessOfWritingOperations() throws Exception {
         FilesControllerMock filesControl = new FilesControllerMock();
-        FileAccessStub reader = new FileAccessStub();
-        filesControl.writers.put("0.indices", reader);
-        filesControl.readers.put("0.indices", reader);
+        filesControl.newFileAccessStub("0.indices");
         IIndexStore indices = new IndexFilesData(filesControl, 2);
         DataHelper.pushIndices(indices, 1);
         Assert.assertEquals(-1, indices.getIndex(1));
@@ -154,5 +154,26 @@ public class IndexFilesDataSpec {
         Assert.assertEquals(2, indices.getIndex(1));
         DataHelper.pushIndices(indices, 6);
         Assert.assertEquals(6, indices.getIndex(5));
+    }
+
+    @Test
+    public void fiveIndicesWrittenBufferSize2_secondReadableTwiceOnSingleFileReading() throws Exception {
+        FilesControllerMock filesControl = new FilesControllerMock();
+        filesControl.newFileAccessStub("0.indices");
+        IIndexStore indices = new IndexFilesData(filesControl, 2);
+        DataHelper.pushIndices(indices, 1, 2, 3, 4, 5);
+        Assert.assertEquals(2, indices.getIndex(1));
+        Assert.assertEquals(2, indices.getIndex(1));
+        Assert.assertEquals(1, filesControl.calls_to_getReaderForFile.size());
+    }
+
+    @Test
+    public void fiveIndicesWrittenBufferSize2_thirdReadable() throws Exception {
+        FilesControllerMock filesControl = new FilesControllerMock();
+        filesControl.newFileAccessStub("2.indices");
+        IIndexStore indices = new IndexFilesData(filesControl, 2);
+        DataHelper.pushIndices(indices, 1, 2, 3, 4, 5);
+        Assert.assertEquals(3, indices.getIndex(2));
+        Assert.assertEquals("2.indices", filesControl.calls_to_getReaderForFile.get(0));
     }
 }

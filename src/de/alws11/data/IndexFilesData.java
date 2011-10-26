@@ -15,14 +15,17 @@ public class IndexFilesData implements IIndexStore, IReadOnlyIndexStore {
     private long[] _bufferedIndices;
     private int _currentBufferIndex;
     private long _currentMetaIndex;
+    private long[] _lastReadIndices;
+    private String _lastReadFile;
 
     public IndexFilesData(IFilesController files, int bufferSize) throws Exception {
         _files = files;
         _bufferedIndices = new long[bufferSize];
         _currentBufferIndex = 0;
         _currentMetaIndex = 0;
-        if (bufferSize < 1)
-            throw new Exception("buffer too small");
+        _lastReadIndices = new long[bufferSize];
+        _lastReadFile = null;
+        if (bufferSize < 1) throw new Exception("buffer too small");
     }
 
     public void setRequiredSize(long size) {
@@ -41,7 +44,7 @@ public class IndexFilesData implements IIndexStore, IReadOnlyIndexStore {
 
     private void writeBufferToFile() {
         _currentBufferIndex = 0;
-        String newFile = getNewFileName(getStartMetaIndexOfBuffer());
+        String newFile = getFileName(getStartMetaIndexOfBuffer());
         writeBufferToFile(newFile);
     }
 
@@ -56,7 +59,7 @@ public class IndexFilesData implements IIndexStore, IReadOnlyIndexStore {
         }
     }
 
-    private String getNewFileName(long metaIndex) {
+    private String getFileName(long metaIndex) {
         return metaIndex + ".indices";
     }
 
@@ -71,7 +74,7 @@ public class IndexFilesData implements IIndexStore, IReadOnlyIndexStore {
     public long getIndex(long metaIndex) {
         if (metaIndex >= _currentMetaIndex || metaIndex < 0) return -1;
         if (metaIndex >= getStartMetaIndexOfBuffer())
-            return _bufferedIndices[(int) getOffsetIndex(metaIndex)];
+            return _bufferedIndices[getOffsetIndex(metaIndex)];
         else
             return readIndexFromFile(metaIndex);
     }
@@ -79,39 +82,58 @@ public class IndexFilesData implements IIndexStore, IReadOnlyIndexStore {
     private long readIndexFromFile(long metaIndex) {
         long result = -1;
         try {
-            result = getOffsetIndexFromFile(metaIndex, getReaderForMetaIndex(metaIndex));
+            result = getIndexForMetaIndexFromFiles(metaIndex);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return result;
     }
 
-    private IFileReadAccess getReaderForMetaIndex(long metaIndex) throws IOException {
-        String fileWithRequestedIndex = getNewFileName(metaIndex / _bufferedIndices.length);
+    private long getIndexForMetaIndexFromFiles(long metaIndex) throws Exception {
+        String fileWithRequestedIndex = getFileNameForMetaIndex(metaIndex);
+        if (fileWithRequestedIndex.equals(_lastReadFile)) {
+            return getIndexForMetaIndexFromLastRead(metaIndex);
+        } else {
+            _lastReadFile = fileWithRequestedIndex;
+            return getIndexForMetaIndexFromFile(metaIndex, getReaderForFile(fileWithRequestedIndex));
+        }
+    }
+
+    private String getFileNameForMetaIndex(long metaIndex) {
+        return getFileName((metaIndex / _bufferedIndices.length) * _bufferedIndices.length);
+    }
+
+    private IFileReadAccess getReaderForFile(String fileWithRequestedIndex) throws IOException {
         return _files.getReaderForFile(fileWithRequestedIndex);
     }
 
-    private long getOffsetIndexFromFile(long metaIndex, IFileReadAccess reader) throws Exception {
+    private long getIndexForMetaIndexFromLastRead(long metaIndex) {
+        return _lastReadIndices[getOffsetIndex(metaIndex)];
+    }
+
+    private long getIndexForMetaIndexFromFile(long metaIndex, IFileReadAccess reader) throws Exception {
         FileLineEnumerable lines = new FileLineEnumerable(reader);
-        long requestedIndex = getOffsetIndexFromEnumerable(metaIndex, lines);
+        long requestedIndex = getIndexForMetaIndexFromEnumerable(metaIndex, lines);
         lines.close();
         return requestedIndex;
     }
 
-    private long getOffsetIndexFromEnumerable(long metaIndex, FileLineEnumerable lines) {
+    private long getIndexForMetaIndexFromEnumerable(long metaIndex, FileLineEnumerable lines) {
         Iterator<String> lineIterator = lines.iterator();
-        return getOffsetIndexFromIterator(metaIndex, lineIterator);
+        readIteratorIntoLastReadIndices(lineIterator);
+        return _lastReadIndices[getOffsetIndex(metaIndex)];
     }
 
-    private long getOffsetIndexFromIterator(long metaIndex, Iterator<String> lineIterator) {
-        long offsetIndex = getOffsetIndex(metaIndex);
-        long i = 0;
-        for (; i <= offsetIndex; i++) lineIterator.hasNext();
-        return Long.parseLong(lineIterator.next());
+    private void readIteratorIntoLastReadIndices(Iterator<String> lineIterator) {
+        for (int i = 0; i < _lastReadIndices.length; i++) {
+            lineIterator.hasNext();
+            String line = lineIterator.next();
+            _lastReadIndices[i] = line != null ? Long.parseLong(line) : -1;
+        }
     }
 
-    private long getOffsetIndex(long metaIndex) {
-        return metaIndex % _bufferedIndices.length;
+    private int getOffsetIndex(long metaIndex) {
+        return (int) metaIndex % _bufferedIndices.length;
     }
 
     public void close() {
