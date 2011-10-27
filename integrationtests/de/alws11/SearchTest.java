@@ -46,6 +46,8 @@ public class SearchTest {
         Assert.assertTrue(findings.contains((long) 8));
         Assert.assertTrue(findings.size() == 1);
 
+        SearchIntegrationHelper.close(indices, pattern, source);
+        FileAccessHelper.deleteFolder(INDICES_ROOT);
         FileAccessHelper.delete(SOURCE_FILE, PATTERN_FILE);
     }
 }

@@ -39,6 +39,12 @@ public class FileAccessHelper {
         }
     }
 
+    public static void deleteFolder(String folder) throws Exception {
+        for (String file : new File(folder).list()) {
+            delete(folder + "\\" + file);
+        }
+    }
+
     private static void delete(String file) throws Exception {
         File fileToDelete = new File(file);
         if (fileToDelete.exists()) {
