@@ -8,10 +8,11 @@ import de.alws11.fileio.FileBufferedWriter;
 import de.alws11.fileio.FilesController;
 
 public class SearchIntegrationHelper {
-    public static void close(IIndexStore indices, IDataProvider pattern, IDataProvider source) {
+    public static void close(IIndexStore indices, IDataProvider... dataProviders) {
         indices.close();
-        pattern.close();
-        source.close();
+        for (IDataProvider data : dataProviders) {
+            data.close();
+        }
     }
 
     public static IDataProvider getSourceFile(String file, int bufferSize) throws Exception {

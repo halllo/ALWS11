@@ -9,7 +9,7 @@ public class SearchTest {
     private final String SOURCE_FILE = "E:\\source.txt";
     private final String PATTERN_FILE = "E:\\pattern.txt";
     private final String INDICES_FILE = "E:\\indices.txt";
-    private final String INDICES_ROOT = "E:\\indices";
+    private final String INDICES_ROOT = "E:\\measures\\indices";
 
     @Test
     public void searchWikipediaSample1OnSingleIndexFile_singleMatchFound() throws Exception {

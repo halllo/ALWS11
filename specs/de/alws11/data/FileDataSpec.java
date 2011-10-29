@@ -58,6 +58,21 @@ public class FileDataSpec {
     }
 
     @Test
+    public void nineCharsBufferSize3_indexableInReverseOrder() throws Exception {
+        IDataProvider dataIndexer = DataHelper.getDataProvider("0123456789", 3);
+        Assert.assertEquals('9', dataIndexer.getPosition(9));
+        Assert.assertEquals('8', dataIndexer.getPosition(8));
+        Assert.assertEquals('7', dataIndexer.getPosition(7));
+        Assert.assertEquals('6', dataIndexer.getPosition(6));
+        Assert.assertEquals('5', dataIndexer.getPosition(5));
+        Assert.assertEquals('4', dataIndexer.getPosition(4));
+        Assert.assertEquals('3', dataIndexer.getPosition(3));
+        Assert.assertEquals('2', dataIndexer.getPosition(2));
+        Assert.assertEquals('1', dataIndexer.getPosition(1));
+        Assert.assertEquals('0', dataIndexer.getPosition(0));
+    }
+
+    @Test
     public void tenCharsBufferSize3_oneAfterLastNotIndexable() throws Exception {
         IDataProvider dataIndexer = DataHelper.getDataProvider("0123456789", 3);
         Assert.assertEquals('\u0000', dataIndexer.getPosition(10));

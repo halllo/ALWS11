@@ -8,7 +8,7 @@ public class PrefixHelper {
     public static long[] prefixesOf(String pattern) {
         IDataProvider patternData = new StringData(pattern);
         IndexData prefixes = new IndexData();
-        de.alws11.KnuthMorrisPratt.PrefixAnalysis.forPattern(patternData, prefixes);
+        de.alws11.KnuthMorrisPratt.PrefixAnalysis.forPattern(patternData, patternData, prefixes);
         return prefixes.getRaw();
     }
 }

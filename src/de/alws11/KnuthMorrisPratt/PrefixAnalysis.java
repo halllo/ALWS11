@@ -4,13 +4,13 @@ import de.alws11.IDataProvider;
 import de.alws11.IIndexStore;
 
 public class PrefixAnalysis {
-    public static void forPattern(IDataProvider pattern, IIndexStore prefixes) {
+    public static void forPattern(IDataProvider pattern, IDataProvider patternForJumping, IIndexStore prefixes) {
         prefixes.setRequiredSize(pattern.size() + 1);
         long i = 0;
         long j = -1;
         prefixes.pushIndex(j);
         while (i < pattern.size()) {
-            while (j >= 0 && pattern.getPosition(j) != pattern.getPosition(i)) {
+            while (j >= 0 && pattern.getPosition(i) != patternForJumping.getPosition(j)) {
                 j = prefixes.getIndex(j);
             }
             i = i + 1;

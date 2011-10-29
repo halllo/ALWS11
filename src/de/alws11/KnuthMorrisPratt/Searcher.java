@@ -16,8 +16,12 @@ public class Searcher implements ISearch {
     }
 
     public ISearch forPattern(IDataProvider pattern) {
+        return forPattern(pattern, pattern);
+    }
+
+    public ISearch forPattern(IDataProvider pattern, IDataProvider patternAgain) {
         _pattern = pattern;
-        PrefixAnalysis.forPattern(_pattern, _indices);
+        PrefixAnalysis.forPattern(_pattern, patternAgain, _indices);
         return this;
     }
 

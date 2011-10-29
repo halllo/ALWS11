@@ -9,12 +9,12 @@ public class DynamicDataTest {
     private final String TEST_FILE = "E:\\test.txt";
 
     @Test
-    public void dynamicDataOf5M_fileSize5M() throws Exception {
-        DynamicData as = DynamicData.startWith(5000000l, "a");
+    public void dynamicDataOf5K_fileSize5K() throws Exception {
+        DynamicData as = DynamicData.startWith(5000l, "a");
         FileBufferedWriter writer = new FileBufferedWriter(TEST_FILE);
         as.toFile(writer);
         writer.close();
-        Assert.assertEquals(5000000l, FileAccessHelper.getSize(TEST_FILE));
+        Assert.assertEquals(5000l, FileAccessHelper.getSize(TEST_FILE));
         FileAccessHelper.delete(TEST_FILE);
     }
 }
