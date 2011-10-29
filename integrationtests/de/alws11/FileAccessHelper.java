@@ -55,6 +55,11 @@ public class FileAccessHelper {
         }
     }
 
+    public static long getSize(String file) throws Exception {
+        File fileToGetSize = new File(file);
+        return fileToGetSize.length();
+    }
+
     public static void create(String file, String content) throws IOException {
         FileWriter fw = new FileWriter(file, false);
         fw.write(content);

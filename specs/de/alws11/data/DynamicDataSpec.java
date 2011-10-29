@@ -1,6 +1,7 @@
 package de.alws11.data;
 
 import de.alws11.AssertHelper;
+import de.alws11.fileio.fake.FileAccessStub;
 import junit.framework.Assert;
 import org.junit.Test;
 
@@ -94,7 +95,15 @@ public class DynamicDataSpec {
     @Test
     public void emptyPartBigIndex_accessibleByIndex() throws Exception {
         DynamicData dd = DynamicData.startWith(1, "");
-        Assert.assertEquals(dd.getPosition(0), '\u0000');
-        Assert.assertEquals(dd.getPosition(1), '\u0000');
+        Assert.assertEquals('\u0000', dd.getPosition(0));
+        Assert.assertEquals('\u0000', dd.getPosition(1));
+    }
+
+    @Test
+    public void twoSmallParts_assembleLine() throws Exception {
+        DynamicData dd = DynamicData.startWith(5, "a").then(4, "b");
+        FileAccessStub fakeFile = new FileAccessStub();
+        dd.toFile(fakeFile);
+        Assert.assertEquals("aaaaabbbb", fakeFile.singleLine);
     }
 }

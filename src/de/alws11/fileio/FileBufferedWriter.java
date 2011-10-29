@@ -12,8 +12,12 @@ public class FileBufferedWriter implements IFileWriteAccess {
     }
 
     public void writeLine(String line) throws IOException {
-        _writer.write(line);
+        write(line);
         _writer.newLine();
+    }
+
+    public void write(String text) throws IOException {
+        _writer.write(text);
     }
 
     public void prepareForRead() throws IOException {

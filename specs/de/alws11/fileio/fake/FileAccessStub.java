@@ -3,17 +3,20 @@ package de.alws11.fileio.fake;
 import de.alws11.fileio.IFileReadAccess;
 import de.alws11.fileio.IFileWriteAccess;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class FileAccessStub implements IFileReadAccess, IFileWriteAccess {
     public List<String> lines;
+    public String singleLine;
     private int _currentLineIndex;
     private int _currentCharIndex;
 
     public FileAccessStub() {
         lines = new ArrayList<String>();
+        singleLine = "";
     }
 
     public void returnLines(String... lines) {
@@ -43,6 +46,10 @@ public class FileAccessStub implements IFileReadAccess, IFileWriteAccess {
 
     public void writeLine(String line) {
         lines.add(line);
+    }
+
+    public void write(String text) throws IOException {
+        singleLine = singleLine + text;
     }
 
     public void prepareForRead() {

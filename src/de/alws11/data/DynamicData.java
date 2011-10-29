@@ -1,7 +1,9 @@
 package de.alws11.data;
 
 import de.alws11.IDataProvider;
+import de.alws11.fileio.IFileWriteAccess;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +47,12 @@ public class DynamicData implements IDataProvider {
 
     public void close() {
 
+    }
+
+    public void toFile(IFileWriteAccess writer) throws IOException {
+        for (long i = 0; i < size(); i++) {
+            writer.write(String.valueOf(getPosition(i)));
+        }
     }
 
     private void addDataPart(long repetitions, String data) {
