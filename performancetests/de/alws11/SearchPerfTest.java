@@ -1,11 +1,7 @@
 package de.alws11;
 
 import de.alws11.data.DynamicData;
-import de.alws11.data.FileData;
 import de.alws11.data.IndexData;
-import de.alws11.data.IndexFilesData;
-import de.alws11.fileio.FileBufferedReader;
-import de.alws11.fileio.FilesController;
 import junit.framework.Assert;
 import org.junit.Test;
 
@@ -91,14 +87,13 @@ public class SearchPerfTest {
         String florianINDICES_ROOT = "E:\\measures\\florian\\indices";
 
         int bufferSize = 1000;
-        IDataProvider patternFile1 = new FileData(new FileBufferedReader(florianPATTERN_FILE), bufferSize);
-        IDataProvider patternFile2 = new FileData(new FileBufferedReader(florianPATTERN_FILE), bufferSize);
-        IDataProvider textFile = new FileData(new FileBufferedReader(florianTEXT_FILE), bufferSize);
-        IIndexStore prefixIndices = new IndexFilesData(new FilesController(florianINDICES_ROOT), bufferSize);
+        AsymmetricDataProvider patternFile = SearchIntegrationHelper.getFileAsym(florianPATTERN_FILE, bufferSize);
+        IDataProvider textFile = SearchIntegrationHelper.getFile(florianTEXT_FILE, bufferSize);
+        IIndexStore prefixIndices = SearchIntegrationHelper.getIndexStoreFiles(florianINDICES_ROOT, bufferSize);
         ISearch kmpSearch = SearchHelper.getKnuthMorrisPrattSearcher(prefixIndices, false);
-        List<Long> matches = kmpSearch.forPattern(patternFile1, patternFile2).inSource(textFile);
+        List<Long> matches = kmpSearch.forPattern(patternFile).inSource(textFile);
 
-        SearchIntegrationHelper.close(prefixIndices, patternFile1, patternFile2, textFile);
+        SearchIntegrationHelper.close(prefixIndices, patternFile, textFile);
         FileAccessHelper.deleteFolder(florianINDICES_ROOT);
         Assert.assertEquals(1, matches.size());
     }

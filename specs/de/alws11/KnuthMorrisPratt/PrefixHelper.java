@@ -1,14 +1,15 @@
 package de.alws11.KnuthMorrisPratt;
 
-import de.alws11.IDataProvider;
+import de.alws11.AsymmetricDataProvider;
 import de.alws11.data.IndexData;
 import de.alws11.data.StringData;
 
 public class PrefixHelper {
     public static long[] prefixesOf(String pattern) {
-        IDataProvider patternData = new StringData(pattern);
         IndexData prefixes = new IndexData();
-        de.alws11.KnuthMorrisPratt.PrefixAnalysis.forPattern(patternData, patternData, prefixes);
+        AsymmetricDataProvider asymmetricPattern = new AsymmetricDataProvider(
+                new StringData(pattern), new StringData(pattern));
+        de.alws11.KnuthMorrisPratt.PrefixAnalysis.forPattern(asymmetricPattern, prefixes);
         return prefixes.getRaw();
     }
 }

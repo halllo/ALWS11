@@ -15,12 +15,14 @@ public class SearchIntegrationHelper {
         }
     }
 
-    public static IDataProvider getSourceFile(String file, int bufferSize) throws Exception {
+    public static IDataProvider getFile(String file, int bufferSize) throws Exception {
         return new FileData(new FileBufferedReader(file), bufferSize);
     }
 
-    public static IDataProvider getPatternFile(String file, int bufferSize) throws Exception {
-        return new FileData(new FileBufferedReader(file), bufferSize);
+    public static AsymmetricDataProvider getFileAsym(String file, int bufferSize) throws Exception {
+        return new AsymmetricDataProvider(
+                new FileData(new FileBufferedReader(file), bufferSize),
+                new FileData(new FileBufferedReader(file), bufferSize));
     }
 
     public static IIndexStore getIndexStoreFile(String file) throws Exception {

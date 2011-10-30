@@ -4,7 +4,7 @@ import de.alws11.data.DynamicData;
 import de.alws11.fileio.FileBufferedWriter;
 import de.alws11.fileio.IFileWriteAccess;
 
-public class TimeMeasuresHelper {
+public class DynamicDataHelper {
     public static void create(String filePath, DynamicData dataToWrite) throws Exception {
         FileAccessHelper.delete(filePath);
         IFileWriteAccess patternWriter = new FileBufferedWriter(filePath);

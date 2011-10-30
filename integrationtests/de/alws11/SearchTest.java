@@ -18,8 +18,8 @@ public class SearchTest {
 
         int bufferSize = 5;
         IIndexStore indices = SearchIntegrationHelper.getIndexStoreFile(INDICES_FILE);
-        IDataProvider pattern = SearchIntegrationHelper.getPatternFile(PATTERN_FILE, bufferSize);
-        IDataProvider source = SearchIntegrationHelper.getSourceFile(SOURCE_FILE, bufferSize);
+        IDataProvider pattern = SearchIntegrationHelper.getFile(PATTERN_FILE, bufferSize);
+        IDataProvider source = SearchIntegrationHelper.getFile(SOURCE_FILE, bufferSize);
 
         ISearch search = SearchHelper.getKnuthMorrisPrattSearcher(indices, true);
         List<Long> findings = search.forPattern(pattern).inSource(source);
@@ -38,8 +38,29 @@ public class SearchTest {
         int bufferSize = 5;
         int indicesFileSize = 2;
         IIndexStore indices = SearchIntegrationHelper.getIndexStoreFiles(INDICES_ROOT, indicesFileSize);
-        IDataProvider pattern = SearchIntegrationHelper.getPatternFile(PATTERN_FILE, bufferSize);
-        IDataProvider source = SearchIntegrationHelper.getSourceFile(SOURCE_FILE, bufferSize);
+        IDataProvider pattern = SearchIntegrationHelper.getFile(PATTERN_FILE, bufferSize);
+        IDataProvider source = SearchIntegrationHelper.getFile(SOURCE_FILE, bufferSize);
+
+        ISearch search = SearchHelper.getKnuthMorrisPrattSearcher(indices, true);
+        List<Long> findings = search.forPattern(pattern).inSource(source);
+        Assert.assertTrue(findings.contains((long) 8));
+        Assert.assertTrue(findings.size() == 1);
+
+        SearchIntegrationHelper.close(indices, pattern, source);
+        FileAccessHelper.deleteFolder(INDICES_ROOT);
+        FileAccessHelper.delete(SOURCE_FILE, PATTERN_FILE);
+    }
+
+    @Test
+    public void searchWikipediaSample1WithAsymPattern_singleMatchFound() throws Exception {
+        FileAccessHelper.create(SOURCE_FILE, "abababcbababcababcab");
+        FileAccessHelper.create(PATTERN_FILE, "ababcabab");
+
+        int bufferSize = 5;
+        int indicesFileSize = 2;
+        IIndexStore indices = SearchIntegrationHelper.getIndexStoreFiles(INDICES_ROOT, indicesFileSize);
+        AsymmetricDataProvider pattern = SearchIntegrationHelper.getFileAsym(PATTERN_FILE, bufferSize);
+        IDataProvider source = SearchIntegrationHelper.getFile(SOURCE_FILE, bufferSize);
 
         ISearch search = SearchHelper.getKnuthMorrisPrattSearcher(indices, true);
         List<Long> findings = search.forPattern(pattern).inSource(source);
