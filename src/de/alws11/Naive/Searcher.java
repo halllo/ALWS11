@@ -1,4 +1,4 @@
-package de.alws11.KnuthMorrisPratt;
+package de.alws11.Naive;
 
 import de.alws11.*;
 
@@ -7,24 +7,21 @@ import java.util.List;
 
 public class Searcher implements ISearch {
     public boolean findAllMatches;
-    private IIndexStore _indices;
     private IDataProvider _pattern;
 
-    public Searcher(IIndexStore indices) {
+    public Searcher() {
         findAllMatches = true;
-        _indices = indices;
     }
 
     public ISearch forPattern(IDataProvider pattern) {
         if (pattern != null)
-            return forPattern(new AsymmetricDataProvider(pattern));
+            return forPattern(new AsymmetricDataProvider(pattern, pattern));
         else
             return forPattern(null);
     }
 
     public ISearch forPattern(AsymmetricDataProvider pattern) {
         _pattern = pattern;
-        if (_pattern != null) PrefixAnalysis.forPattern(pattern, _indices);
         return this;
     }
 
@@ -43,7 +40,7 @@ public class Searcher implements ISearch {
     }
 
     private void startSearchAlgorithm(IDataProvider source, final List<Long> findings) {
-        SearchAlgorithm.start(source, _pattern, _indices.asReadOnly(), new IMatchFound() {
+        SearchAlgorithm.start(source, _pattern, new IMatchFound() {
             public void newMatch(MatchFoundArgs e) {
                 findings.add(e.position);
                 e.shouldContinue = findAllMatches;

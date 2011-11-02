@@ -14,6 +14,34 @@ public class SearchSpec {
     }
 
     @Test
+    public void wikipediaSample1_singleMatch_naive() throws Exception {
+        ISearch naiveSearch = SearchHelper.getNaiveSearcher(true);
+        List<Long> findings = naiveSearch.forPattern(new StringData("ababcabab")).inSource(new StringData("abababcbababcababcab"));
+        Assert.assertTrue(findings.contains((long) 8));
+    }
+
+    @Test
+    public void nullPattern_noMatch() throws Exception {
+        ISearch naiveSearch = SearchHelper.getSearchProvider(true);
+        List<Long> findings = naiveSearch.forPattern((IDataProvider) null).inSource(new StringData("abababcbababcababcab"));
+        Assert.assertEquals(0, findings.size());
+    }
+
+    @Test
+    public void nullPattern_noMatch_naive() throws Exception {
+        ISearch naiveSearch = SearchHelper.getNaiveSearcher(true);
+        List<Long> findings = naiveSearch.forPattern((IDataProvider) null).inSource(new StringData("abababcbababcababcab"));
+        Assert.assertEquals(0, findings.size());
+    }
+
+    @Test
+    public void emptyPattern_noMatch_naive() throws Exception {
+        ISearch naiveSearch = SearchHelper.getNaiveSearcher(true);
+        List<Long> findings = naiveSearch.forPattern(new StringData("")).inSource(new StringData("abababcbababcababcab"));
+        Assert.assertEquals(0, findings.size());
+    }
+
+    @Test
     public void noOccurrence_noMatch() throws Exception {
         List<Long> findings = SearchHelper.findAll("abababcbababcababcab", "ababdabab");
         Assert.assertTrue(findings.size() == 0);

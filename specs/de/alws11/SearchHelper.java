@@ -27,4 +27,10 @@ public class SearchHelper {
         searcher.findAllMatches = findAllOccurrences;
         return searcher;
     }
+
+    public static ISearch getNaiveSearcher(boolean findAllOccurrences) {
+        de.alws11.Naive.Searcher searcher = new de.alws11.Naive.Searcher();
+        searcher.findAllMatches = findAllOccurrences;
+        return searcher;
+    }
 }

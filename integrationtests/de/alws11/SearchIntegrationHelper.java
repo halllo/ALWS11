@@ -10,6 +10,10 @@ import de.alws11.fileio.FilesController;
 public class SearchIntegrationHelper {
     public static void close(IIndexStore indices, IDataProvider... dataProviders) {
         indices.close();
+        close(dataProviders);
+    }
+
+    public static void close(IDataProvider... dataProviders) {
         for (IDataProvider data : dataProviders) {
             data.close();
         }
