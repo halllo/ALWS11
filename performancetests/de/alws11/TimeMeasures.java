@@ -27,7 +27,6 @@ public class TimeMeasures {
         DynamicDataHelper.create(TEXT_FILE_3, DynamicData.startWith(100000l, "abc").then(1, "d"));
         DynamicDataHelper.create(TEXT_FILE_4, DynamicData.startWith(1000000l, "abc").then(1, "d"));
         DynamicDataHelper.create(TEXT_FILE_5, DynamicData.startWith(10000000l, "abc").then(1, "d"));
-        DynamicDataHelper.create(TEXT_FILE_1, DynamicData.startWith(1000000l, "abc").then(1, "d"));
         DynamicDataHelper.create(TEXT_FILE_6, DynamicData.startWith(100000000l, "abc").then(1, "d"));
         DynamicDataHelper.create(TEXT_FILE_7, DynamicData.startWith(1000000000l, "abc").then(1, "d"));
         DynamicDataHelper.create(TEXT_FILE_8, DynamicData.startWith(10000000000l, "abc").then(1, "d"));
