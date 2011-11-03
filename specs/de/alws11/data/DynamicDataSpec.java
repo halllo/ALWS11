@@ -106,4 +106,13 @@ public class DynamicDataSpec {
         dd.toFile(fakeFile);
         Assert.assertEquals("aaaaabbbb", fakeFile.singleLine);
     }
+
+    @Test
+    public void oneRandomPart_onlyTwoCharsUsed() throws Exception {
+        DynamicData dd = DynamicData.startWithRandom(2, "abc");
+        Assert.assertEquals(2, dd.size());
+        Assert.assertTrue(dd.getPosition(0) != '\u0000');
+        Assert.assertTrue(dd.getPosition(1) != '\u0000');
+        Assert.assertTrue(dd.getPosition(2) == '\u0000');
+    }
 }

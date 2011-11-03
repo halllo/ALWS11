@@ -6,11 +6,43 @@ import de.alws11.fileio.IFileWriteAccess;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class DynamicData implements IDataProvider {
-    class DataPart {
+    abstract class DataPart {
         public long startIndex;
         public String data;
+
+        public abstract int dataLength();
+
+        public abstract char dataPosition(int index);
+    }
+
+    class StaticDataPart extends DataPart {
+        @Override
+        public int dataLength() {
+            return data.length();
+        }
+
+        @Override
+        public char dataPosition(int index) {
+            return data.charAt(index);
+        }
+    }
+
+    class RandomDataPart extends DataPart {
+        private Random _rand = new Random();
+
+        @Override
+        public int dataLength() {
+            return 1;
+        }
+
+        @Override
+        public char dataPosition(int index) {
+            index = _rand.nextInt(data.length());
+            return data.charAt(index);
+        }
     }
 
     private long _size;
@@ -27,18 +59,30 @@ public class DynamicData implements IDataProvider {
         return dd;
     }
 
+    public static DynamicData startWithRandom(long repetitions, String set) {
+        DynamicData dd = new DynamicData();
+        dd.addDataPartRandom(repetitions, set);
+        return dd;
+    }
+
     public DynamicData then(long repetitions, String data) {
         addDataPart(repetitions, data);
         return this;
     }
 
+    public DynamicData thenRandom(long repetitions, String set) {
+        addDataPartRandom(repetitions, set);
+        return this;
+    }
+
     public char getPosition(long index) {
+        if (index >= _size) return '\u0000';
         int i = 0;
         while (i < _parts.size() && _parts.get(i).startIndex <= index) i++;
         DataPart responsiblePart = _parts.get(i - 1);
-        if (responsiblePart.data.length() == 0) return '\u0000';
-        long responsiblePartIndex = (index - responsiblePart.startIndex) % responsiblePart.data.length();
-        return responsiblePart.data.charAt((int) responsiblePartIndex);
+        if (responsiblePart.dataLength() == 0) return '\u0000';
+        long responsiblePartIndex = (index - responsiblePart.startIndex) % responsiblePart.dataLength();
+        return responsiblePart.dataPosition((int) responsiblePartIndex);
     }
 
     public long size() {
@@ -56,10 +100,18 @@ public class DynamicData implements IDataProvider {
     }
 
     private void addDataPart(long repetitions, String data) {
-        DataPart newData = new DataPart();
+        DataPart newData = new StaticDataPart();
         newData.startIndex = _size;
         newData.data = data;
         _parts.add(newData);
         _size += repetitions * data.length();
+    }
+
+    private void addDataPartRandom(long repetitions, String set) {
+        DataPart newData = new RandomDataPart();
+        newData.startIndex = _size;
+        newData.data = set;
+        _parts.add(newData);
+        _size += repetitions;
     }
 }

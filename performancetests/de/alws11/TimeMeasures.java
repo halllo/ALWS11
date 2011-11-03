@@ -15,22 +15,37 @@ public class TimeMeasures {
     private final String TEXT_FILE_4 = "E:\\measures\\text4.txt";
     private final String TEXT_FILE_5 = "E:\\measures\\text5.txt";
     private final String TEXT_FILE_6 = "E:\\measures\\text6.txt";
-    private final String TEXT_FILE_7 = "E:\\measures\\text7.txt";
-    private final String TEXT_FILE_8 = "E:\\measures\\text8.txt";
-    private final String TEXT_FILE_9 = "E:\\measures\\text9.txt";
+    private final String PATTERN_FILE_0 = "E:\\measures\\pattern0.txt";
+    private final String PATTERN_FILE_1 = "E:\\measures\\pattern1.txt";
+    private final String PATTERN_FILE_2 = "E:\\measures\\pattern2.txt";
+    private final String PATTERN_FILE_3 = "E:\\measures\\pattern3.txt";
+    private final String PATTERN_FILE_4 = "E:\\measures\\pattern4.txt";
+    private final String PATTERN_FILE_5 = "E:\\measures\\pattern5.txt";
+    private final String PATTERN_FILE_6 = "E:\\measures\\pattern6.txt";
+
+    private void createFile(String textPath, String patternPath,
+                            long preRepetitions, String randomSet,
+                            long repetitions, String pattern, String patternPostfix,
+                            long postRepetitions) throws Exception {
+        DynamicDataHelper.create(patternPath,
+                DynamicData.startWith(repetitions, pattern)
+                        .then(1, patternPostfix));
+        DynamicDataHelper.create(textPath,
+                DynamicData.startWithRandom(preRepetitions, randomSet)
+                        .then(repetitions, pattern)
+                        .then(1, patternPostfix)
+                        .thenRandom(postRepetitions, randomSet));
+    }
 
     @Test
     public void create_patternAndTextFiles() throws Exception {
-        DynamicDataHelper.create(TEXT_FILE_0, DynamicData.startWith(100l, "abc").then(1, "d"));
-        DynamicDataHelper.create(TEXT_FILE_1, DynamicData.startWith(1000l, "abc").then(1, "d"));
-        DynamicDataHelper.create(TEXT_FILE_2, DynamicData.startWith(10000l, "abc").then(1, "d"));
-        DynamicDataHelper.create(TEXT_FILE_3, DynamicData.startWith(100000l, "abc").then(1, "d"));
-        DynamicDataHelper.create(TEXT_FILE_4, DynamicData.startWith(1000000l, "abc").then(1, "d"));
-        DynamicDataHelper.create(TEXT_FILE_5, DynamicData.startWith(10000000l, "abc").then(1, "d"));
-        DynamicDataHelper.create(TEXT_FILE_6, DynamicData.startWith(100000000l, "abc").then(1, "d"));
-        DynamicDataHelper.create(TEXT_FILE_7, DynamicData.startWith(1000000000l, "abc").then(1, "d"));
-        DynamicDataHelper.create(TEXT_FILE_8, DynamicData.startWith(10000000000l, "abc").then(1, "d"));
-        DynamicDataHelper.create(TEXT_FILE_9, DynamicData.startWith(100000000000l, "abc").then(1, "d"));
+        createFile(TEXT_FILE_0, PATTERN_FILE_0, 1000l, "aaab", 10l, "ab", "c", 100l);
+        createFile(TEXT_FILE_1, PATTERN_FILE_1, 10000l, "aaab", 100l, "ab", "c", 100l);
+        createFile(TEXT_FILE_2, PATTERN_FILE_2, 100000l, "aaab", 1000l, "ab", "c", 100l);
+        createFile(TEXT_FILE_3, PATTERN_FILE_3, 1000000l, "aaab", 10000l, "ab", "c", 100l);
+        createFile(TEXT_FILE_4, PATTERN_FILE_4, 10000000l, "aaab", 100000l, "ab", "c", 100l);
+        createFile(TEXT_FILE_5, PATTERN_FILE_5, 100000000l, "aaab", 1000000l, "ab", "c", 100l);
+        createFile(TEXT_FILE_6, PATTERN_FILE_6, 100000000l, "aaab", 10000000l, "ab", "c", 100l);
     }
 
     @Test

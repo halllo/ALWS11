@@ -79,22 +79,4 @@ public class SearchPerfTest {
         Assert.assertTrue(findings.contains((long) 19000000));
         Assert.assertTrue(findings.size() == 1);
     }
-
-    @Test
-    public void searchFloriansFilesBuffer1000_matchAtEnd() throws Exception {
-        String florianPATTERN_FILE = "E:\\measures\\florian\\TestFilePattern.txt";
-        String florianTEXT_FILE = "E:\\measures\\florian\\TestFileText.txt";
-        String florianINDICES_ROOT = "E:\\measures\\florian\\indices";
-
-        int bufferSize = 1000;
-        AsymmetricDataProvider patternFile = SearchIntegrationHelper.getFileAsym(florianPATTERN_FILE, bufferSize);
-        IDataProvider textFile = SearchIntegrationHelper.getFile(florianTEXT_FILE, bufferSize);
-        IIndexStore prefixIndices = SearchIntegrationHelper.getIndexStoreFiles(florianINDICES_ROOT, bufferSize);
-        ISearch kmpSearch = SearchHelper.getKnuthMorrisPrattSearcher(prefixIndices, false);
-        List<Long> matches = kmpSearch.forPattern(patternFile).inSource(textFile);
-
-        SearchIntegrationHelper.close(prefixIndices, patternFile, textFile);
-        FileAccessHelper.deleteFolder(florianINDICES_ROOT);
-        Assert.assertEquals(1, matches.size());
-    }
 }
