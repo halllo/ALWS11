@@ -15,6 +15,7 @@ public class TimeMeasures {
     private final String TEXT_FILE_4 = "E:\\measures\\text4.txt";
     private final String TEXT_FILE_5 = "E:\\measures\\text5.txt";
     private final String TEXT_FILE_6 = "E:\\measures\\text6.txt";
+    private final String TEXT_FILE_7 = "E:\\measures\\text7.txt";
     private final String PATTERN_FILE_0 = "E:\\measures\\pattern0.txt";
     private final String PATTERN_FILE_1 = "E:\\measures\\pattern1.txt";
     private final String PATTERN_FILE_2 = "E:\\measures\\pattern2.txt";
@@ -22,6 +23,7 @@ public class TimeMeasures {
     private final String PATTERN_FILE_4 = "E:\\measures\\pattern4.txt";
     private final String PATTERN_FILE_5 = "E:\\measures\\pattern5.txt";
     private final String PATTERN_FILE_6 = "E:\\measures\\pattern6.txt";
+    private final String PATTERN_FILE_7 = "E:\\measures\\pattern7.txt";
 
     private void createFile(String textPath, String patternPath,
                             long preRepetitions, String randomSet,
@@ -45,12 +47,13 @@ public class TimeMeasures {
         createFile(TEXT_FILE_3, PATTERN_FILE_3, 1000000l, "aaab", 10000l, "ab", "c", 100l);
         createFile(TEXT_FILE_4, PATTERN_FILE_4, 10000000l, "aaab", 100000l, "ab", "c", 100l);
         createFile(TEXT_FILE_5, PATTERN_FILE_5, 100000000l, "aaab", 1000000l, "ab", "c", 100l);
-        createFile(TEXT_FILE_6, PATTERN_FILE_6, 100000000l, "aaab", 10000000l, "ab", "c", 100l);
+        createFile(TEXT_FILE_6, PATTERN_FILE_6, 1000000000l, "aaab", 10000000l, "ab", "c", 100l);
+        createFile(TEXT_FILE_7, PATTERN_FILE_7, 10000000000l, "aaab", 100000000l, "ab", "c", 100l);
     }
 
     @Test
-    public void searchKMP_text0_in_text3_buffer1000() throws Exception {
-        measureKmpSearchTime(1000, TEXT_FILE_2, TEXT_FILE_0);
+    public void searchKMP_pattern6_in_text6_buffer1000() throws Exception {
+        measureKmpSearchTime(1000, TEXT_FILE_6, PATTERN_FILE_6);
         FileAccessHelper.deleteFolder(INDICES_ROOT);
     }
 
