@@ -5,14 +5,29 @@ import de.alws11.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class provides search functionality by harnessing a naive algorithm without any improvements. The algorithm works with O(m*n) with m being the length of the text and n being the length of the search pattern.
+ */
 public class Searcher implements ISearch {
+    /**
+     * This field indicates whether the search should stop after the first match was found. TRUE finds all matches, FALSE stops after first match. TRUE is default.
+     */
     public boolean findAllMatches;
     private IDataProvider _pattern;
 
+    /**
+     * This constructor initializes the search.
+     */
     public Searcher() {
         findAllMatches = true;
     }
 
+    /**
+     * This method registers a search pattern with the algorithm. The pattern is used as single data provider for asymmetric lookup.
+     *
+     * @param pattern This pattern is used to search for occurrences.
+     * @return The same instance is returned.
+     */
     public ISearch forPattern(IDataProvider pattern) {
         if (pattern != null)
             return forPattern(new AsymmetricDataProvider(pattern, pattern));
@@ -20,11 +35,23 @@ public class Searcher implements ISearch {
             return forPattern(null);
     }
 
+    /**
+     * This method registers a search pattern with the algorithm. The pattern is used for asymmetric lookup.
+     *
+     * @param pattern This pattern is used to search for occurrences.
+     * @return The same instance is returned.
+     */
     public ISearch forPattern(AsymmetricDataProvider pattern) {
         _pattern = pattern;
         return this;
     }
 
+    /**
+     * This method starts the search algorithm.
+     *
+     * @param source This parameter is the source in which the pattern is searched.
+     * @return The method returns a list of all start positions of found matches. If the pattern has not been set, the method returns an empty list immediately.
+     */
     public List<Long> inSource(IDataProvider source) {
         if (_pattern == null)
             return new ArrayList<Long>();

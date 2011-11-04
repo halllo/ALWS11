@@ -52,6 +52,18 @@ public class TimeMeasures {
     }
 
     @Test
+    public void searchKMP_pattern4_in_text4_buffer1000() throws Exception {
+        measureKmpSearchTime(1000, TEXT_FILE_4, PATTERN_FILE_4);
+        FileAccessHelper.deleteFolder(INDICES_ROOT);
+    }
+
+    @Test
+    public void searchKMP_pattern5_in_text5_buffer1000() throws Exception {
+        measureKmpSearchTime(1000, TEXT_FILE_5, PATTERN_FILE_5);
+        FileAccessHelper.deleteFolder(INDICES_ROOT);
+    }
+
+    @Test
     public void searchKMP_pattern6_in_text6_buffer1000() throws Exception {
         measureKmpSearchTime(1000, TEXT_FILE_6, PATTERN_FILE_6);
         FileAccessHelper.deleteFolder(INDICES_ROOT);

@@ -5,7 +5,18 @@ import de.alws11.IMatchFound;
 import de.alws11.IReadOnlyIndexStore;
 import de.alws11.MatchFoundArgs;
 
+/**
+ * This class provides the functionality of the Knuth-Morris-Pratt search algorithm. The algorithm works with O(m) with m being the length of the text and n being the length of the search pattern.
+ */
 public class SearchAlgorithm {
+    /**
+     * This method searches for a search pattern in a data source.
+     *
+     * @param data     This parameter is the data search in which a pattern is searched for.
+     * @param pattern  This parameter is the search pattern which is used to search for in the data source.
+     * @param prefixes This parameter is the result of the next function, which is used to move the pattern along by the maximum number of characters possible.
+     * @param found    This parameter provides the callback which gets invoked for every match that was found.
+     */
     public static void start(IDataProvider data, IDataProvider pattern, IReadOnlyIndexStore prefixes, IMatchFound found) {
         if (pattern.size() > 0) {
             long i = 0;

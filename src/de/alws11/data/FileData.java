@@ -4,6 +4,9 @@ import de.alws11.IDataProvider;
 import de.alws11.fileio.FileCharArrayEnumerable;
 import de.alws11.fileio.IFileReadAccess;
 
+/**
+ * This class provides basic file data in an indexable way.
+ */
 public class FileData implements IDataProvider {
     private char[] _currentBuffer;
     private FileCharArrayEnumerable _fileCharReader;
@@ -11,6 +14,13 @@ public class FileData implements IDataProvider {
     private IFileReadAccess _fileAccess;
     private long _currentEnd;
 
+    /**
+     * This constructor initializes the necessary buffers in order for file access.
+     *
+     * @param fileAccess The abstract file from which data is read and stored in a buffer.
+     * @param bufferSize This parameter defines how many characters are going to fit into the buffer.
+     * @throws Exception File accessing errors might occur.
+     */
     public FileData(IFileReadAccess fileAccess, int bufferSize) throws Exception {
         _fileAccess = fileAccess;
         _fileCharReader = new FileCharArrayEnumerable(_fileAccess, bufferSize);
@@ -23,6 +33,12 @@ public class FileData implements IDataProvider {
         _currentEnd = 0;
     }
 
+    /**
+     * This method looks up whether the requested character is already in the buffer and resets it when now.
+     *
+     * @param index The zero based position from where the character is requested.
+     * @return The method returns the character at the position in the file. If there is no such index, '\u0000' is returned.
+     */
     public char getPosition(long index) {
         resetIteratorIfJumpRequired(index);
         iterateUntilRequestPositionInBuffer(index);
@@ -54,10 +70,18 @@ public class FileData implements IDataProvider {
         }
     }
 
+    /**
+     * This method returns the size of the abstract file.
+     *
+     * @return The method returns the amount of characters in the file.
+     */
     public long size() {
         return _fileAccess.getFileSize();
     }
 
+    /**
+     * This method closes the buffer and the file.
+     */
     public void close() {
         _fileCharReader.close();
     }
