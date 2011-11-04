@@ -53,26 +53,26 @@ public class TimeMeasures {
 
     @Test
     public void searchKMP_pattern4_in_text4_buffer1000() throws Exception {
-        measureKmpSearchTime(1000, TEXT_FILE_4, PATTERN_FILE_4);
+        measureKmpSearchTime(1000, TEXT_FILE_4, PATTERN_FILE_4, INDICES_ROOT);
         FileAccessHelper.deleteFolder(INDICES_ROOT);
     }
 
     @Test
     public void searchKMP_pattern5_in_text5_buffer1000() throws Exception {
-        measureKmpSearchTime(1000, TEXT_FILE_5, PATTERN_FILE_5);
+        measureKmpSearchTime(1000, TEXT_FILE_5, PATTERN_FILE_5, INDICES_ROOT);
         FileAccessHelper.deleteFolder(INDICES_ROOT);
     }
 
     @Test
     public void searchKMP_pattern6_in_text6_buffer1000() throws Exception {
-        measureKmpSearchTime(1000, TEXT_FILE_6, PATTERN_FILE_6);
+        measureKmpSearchTime(1000, TEXT_FILE_6, PATTERN_FILE_6, INDICES_ROOT);
         FileAccessHelper.deleteFolder(INDICES_ROOT);
     }
 
-    private void measureKmpSearchTime(int bufferSize, String textFilePath, String patternFilePath) throws Exception {
+    public static void measureKmpSearchTime(int bufferSize, String textFilePath, String patternFilePath, String indicesRoot) throws Exception {
         IDataProvider textFile = SearchIntegrationHelper.getFile(textFilePath, bufferSize);
         AsymmetricDataProvider patternFile = SearchIntegrationHelper.getFileAsym(patternFilePath, bufferSize);
-        IIndexStore prefixIndices = SearchIntegrationHelper.getIndexStoreFiles(INDICES_ROOT, bufferSize);
+        IIndexStore prefixIndices = SearchIntegrationHelper.getIndexStoreFiles(indicesRoot, bufferSize);
 
         ISearch kmpSearch = SearchHelper.getKnuthMorrisPrattSearcher(prefixIndices, false);
         List<Long> matches = kmpSearch.forPattern(patternFile).inSource(textFile);
@@ -81,7 +81,7 @@ public class TimeMeasures {
         Assert.assertEquals(1, matches.size());
     }
 
-    private void measureNaiveSearchTime(int bufferSize, String textFilePath, String patternFilePath) throws Exception {
+    public static void measureNaiveSearchTime(int bufferSize, String textFilePath, String patternFilePath) throws Exception {
         IDataProvider textFile = SearchIntegrationHelper.getFile(textFilePath, bufferSize);
         AsymmetricDataProvider patternFile = SearchIntegrationHelper.getFileAsym(patternFilePath, bufferSize);
 
