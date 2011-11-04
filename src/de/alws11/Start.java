@@ -35,11 +35,11 @@ public class Start {
         IIndexStore prefixIndices = getIndexStoreFiles(indicesRoot, bufferSize);
         ISearch kmpSearch = getKnuthMorrisPrattSearcher(prefixIndices, false);
 
-        System.out.println("calculating next function...");
+        System.out.print("calculating next function...");
         kmpSearch = kmpSearch.forPattern(patternFile);
         System.out.println("done!");
 
-        System.out.println("searching...");
+        System.out.print("searching...");
         List<Long> matches = kmpSearch.inSource(textFile);
         System.out.println("done!");
 
