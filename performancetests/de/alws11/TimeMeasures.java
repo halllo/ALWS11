@@ -70,12 +70,21 @@ public class TimeMeasures {
     }
 
     public static void measureKmpSearchTime(int bufferSize, String textFilePath, String patternFilePath, String indicesRoot) throws Exception {
+        measureKmpSearchTime(bufferSize, textFilePath, patternFilePath, indicesRoot, new ITimePoint() {
+            public void now() {
+            }
+        });
+    }
+
+    public static void measureKmpSearchTime(int bufferSize, String textFilePath, String patternFilePath, String indicesRoot, ITimePoint pointInTime) throws Exception {
         IDataProvider textFile = SearchIntegrationHelper.getFile(textFilePath, bufferSize);
         AsymmetricDataProvider patternFile = SearchIntegrationHelper.getFileAsym(patternFilePath, bufferSize);
         IIndexStore prefixIndices = SearchIntegrationHelper.getIndexStoreFiles(indicesRoot, bufferSize);
 
         ISearch kmpSearch = SearchHelper.getKnuthMorrisPrattSearcher(prefixIndices, false);
-        List<Long> matches = kmpSearch.forPattern(patternFile).inSource(textFile);
+        ISearch searchReady = kmpSearch.forPattern(patternFile);
+        pointInTime.now();
+        List<Long> matches = searchReady.inSource(textFile);
 
         SearchIntegrationHelper.close(prefixIndices, patternFile, textFile);
         Assert.assertEquals(1, matches.size());
