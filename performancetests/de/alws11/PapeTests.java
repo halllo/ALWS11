@@ -49,7 +49,7 @@ public class PapeTests {
         System.out.print("(deleting indices... ");
         s.start();
         FileAccessHelper.deleteFolder(INDICES_ROOT);
-        System.out.print(s.stopAndTime() + "ms)");
+        System.out.println(s.stopAndTime() + "ms)");
     }
 
     private void TestFileWithKmp(String testFile, int buffer, ITimePoint pointInTime) throws Exception {
